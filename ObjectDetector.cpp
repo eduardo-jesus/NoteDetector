@@ -42,14 +42,14 @@ ObjectDetector::ObjectDetector(ImgObject& scene, cv::FeatureDetector* feature_de
 ObjectDetector::~ObjectDetector(void) {}
 
 void ObjectDetector::loadLibrary() {
-    object_library_.push_back(create5Front());
-    object_library_.push_back(create5Back());
-    object_library_.push_back(create10Front());
-    object_library_.push_back(create10Back());
-    object_library_.push_back(create20Front());
-    object_library_.push_back(create20Back());
-    object_library_.push_back(create50Front());
-    object_library_.push_back(create50Back());
+    object_library_.push_back(NoteImgObject::create5Front(feature_detector_, descriptor_extractor_));
+    object_library_.push_back(NoteImgObject::create5Back(feature_detector_, descriptor_extractor_));
+    object_library_.push_back(NoteImgObject::create10Front(feature_detector_, descriptor_extractor_));
+    object_library_.push_back(NoteImgObject::create10Back(feature_detector_, descriptor_extractor_));
+    object_library_.push_back(NoteImgObject::create20Front(feature_detector_, descriptor_extractor_));
+    object_library_.push_back(NoteImgObject::create20Back(feature_detector_, descriptor_extractor_));
+    object_library_.push_back(NoteImgObject::create50Front(feature_detector_, descriptor_extractor_));
+    object_library_.push_back(NoteImgObject::create50Back(feature_detector_, descriptor_extractor_));
 }
 
 bool ObjectDetector::iterate() {
@@ -69,7 +69,7 @@ bool ObjectDetector::iterate() {
     }
 
     for(unsigned int i = 0; i < object_->getKeypoints().size(); ++i) {
-        if(matches[i].distance < 3*min_dist) {
+        if(matches[i].distance < 3 * min_dist) {
             good_matches.push_back(matches[i]);
         }
     }
@@ -191,82 +191,10 @@ void ObjectDetector::drawFoundObject(cv::Mat& img, FoundObject found_object) {
 }
 
 bool ObjectDetector::allPointsInsideCountour(std::vector<cv::Point2f> countour, std::vector<cv::Point2f> inliers) {
-    for(unsigned int i = 0; i < inliers.size(); ++i) {
+    for (unsigned int i = 0; i < inliers.size(); ++i) {
         if(cv::pointPolygonTest(countour, inliers[i], false) < 0) {
             return false;
         }
     }
     return true;
-}
-
-NoteImgObject ObjectDetector::create5Front(std::string filename) {
-    std::vector<std::vector<cv::Point2f>> patches;
-    patches.push_back(ImgObject::createPatch(7,6,7+17,6+24)); // left top
-    patches.push_back(ImgObject::createPatch(8,99,8+22,99+32)); // left bottom
-    patches.push_back(ImgObject::createPatch(188,6,188+37,6+60)); // right top
-    patches.push_back(ImgObject::createPatch(130,10,130+101,10+118)); // arc
-    return NoteImgObject(filename, 5, feature_detector_, descriptor_extractor_, patches);
-}
-
-NoteImgObject ObjectDetector::create5Back(std::string filename) {
-    std::vector<std::vector<cv::Point2f>> patches;
-    patches.push_back(ImgObject::createPatch(7,7,7+115,7+73)); // left top
-    patches.push_back(ImgObject::createPatch(6,100,6+22,100+32)); // left bottom
-    patches.push_back(ImgObject::createPatch(239,5,239+18,5+25)); // right top
-    patches.push_back(ImgObject::createPatch(241,106,241+15,106+24)); // right bottom
-    return NoteImgObject(filename, 5, feature_detector_, descriptor_extractor_, patches);
-}
-
-NoteImgObject ObjectDetector::create10Front(std::string filename) {
-    std::vector<std::vector<cv::Point2f>> patches;
-    patches.push_back(ImgObject::createPatch(5,5,5+25,5+24)); // left top
-    patches.push_back(ImgObject::createPatch(5,104,5+32,104+29)); // left bottom
-    patches.push_back(ImgObject::createPatch(169,6,169+59,6+51)); // right top
-    patches.push_back(ImgObject::createPatch(135,29,135+96,29+102)); // arc
-    return NoteImgObject(filename, 10, feature_detector_, descriptor_extractor_, patches);
-}
-
-NoteImgObject ObjectDetector::create10Back(std::string filename) {
-    std::vector<std::vector<cv::Point2f>> patches;
-    patches.push_back(ImgObject::createPatch(8,6,8+149,6+47)); // left top
-    patches.push_back(ImgObject::createPatch(9,104,9+27,104+30)); // left bottom
-    patches.push_back(ImgObject::createPatch(233,4,233+25,4+24)); // right top
-    patches.push_back(ImgObject::createPatch(235,110,235+24,110+23)); // right bottom
-    return NoteImgObject(filename, 10, feature_detector_, descriptor_extractor_, patches);
-}
-
-NoteImgObject ObjectDetector::create20Front(std::string filename) {
-    std::vector<std::vector<cv::Point2f>> patches;
-    patches.push_back(ImgObject::createPatch(4,4,4+26,4+23)); // left top
-    patches.push_back(ImgObject::createPatch(6,109,6+31,109+27)); // left bottom
-    patches.push_back(ImgObject::createPatch(159,5,159+63,5+52)); // right top
-    patches.push_back(ImgObject::createPatch(129,45,129+106,45+92)); // arc
-    return NoteImgObject(filename, 20, feature_detector_, descriptor_extractor_, patches);
-}
-
-NoteImgObject ObjectDetector::create20Back(std::string filename) {
-    std::vector<std::vector<cv::Point2f>> patches;
-    patches.push_back(ImgObject::createPatch(6,3,6+150,3+61)); // left top
-    patches.push_back(ImgObject::createPatch(7,111,7+32,111+29)); // left bottom
-    patches.push_back(ImgObject::createPatch(236,3,236+24,3+26)); // right top
-    patches.push_back(ImgObject::createPatch(232,114,232+28,114+25)); // right bottom
-    return NoteImgObject(filename, 20, feature_detector_, descriptor_extractor_, patches);
-}
-
-NoteImgObject ObjectDetector::create50Front(std::string filename) {
-    std::vector<std::vector<cv::Point2f>> patches;
-    patches.push_back(ImgObject::createPatch(3,5,3+24,5+23)); // left top
-    patches.push_back(ImgObject::createPatch(3,114,3+32,114+26)); // left bottom
-    patches.push_back(ImgObject::createPatch(166,4,166+64,4+52)); // right top
-    patches.push_back(ImgObject::createPatch(142,26,142+80,26+105)); // arc
-    return NoteImgObject(filename, 50, feature_detector_, descriptor_extractor_, patches);
-}
-
-NoteImgObject ObjectDetector::create50Back(std::string filename) {
-    std::vector<std::vector<cv::Point2f>> patches;
-    patches.push_back(ImgObject::createPatch(7,5,7+160,5+57)); // left top
-    patches.push_back(ImgObject::createPatch(8,114,8+36,114+29)); // left bottom
-    patches.push_back(ImgObject::createPatch(237,4,237+24,4+24)); // right top
-    patches.push_back(ImgObject::createPatch(220,111,220+36,111+28)); // right bottom
-    return NoteImgObject(filename, 50, feature_detector_, descriptor_extractor_, patches);
 }

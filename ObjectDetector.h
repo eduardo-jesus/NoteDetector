@@ -44,15 +44,6 @@ public:
     bool allPointsInsideCountour(std::vector<cv::Point2f> countour, std::vector<cv::Point2f> inliers);
     void drawCountourWithText(cv::Mat& img, std::vector<cv::Point2f>& countour, std::string text);
     void drawFoundObject(cv::Mat& img, FoundObject found_object);
-
-    NoteImgObject create5Front(std::string filename = "notes/5eu_r.jpg");
-    NoteImgObject create5Back(std::string filename = "notes/5eu_v.jpg");
-    NoteImgObject create10Front(std::string filename = "notes/10eu_r.jpg");
-    NoteImgObject create10Back(std::string filename = "notes/10eu_v.jpg");
-    NoteImgObject create20Front(std::string filename = "notes/20eu_r.jpg");
-    NoteImgObject create20Back(std::string filename = "notes/20eu_v.jpg");
-    NoteImgObject create50Front(std::string filename = "notes/50eu_r.jpg");
-    NoteImgObject create50Back(std::string filename = "notes/50eu_v.jpg");
 };
 
 #endif
