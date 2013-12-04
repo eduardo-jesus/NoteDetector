@@ -19,7 +19,7 @@ protected:
     std::vector<std::vector<cv::Point2f>> patches_;
 public:
     ImgObject(void);
-    ImgObject(std::string filename, cv::Feature2D* detector = NULL, cv::Feature2D* extractor = NULL);
+    ImgObject(std::string filename, cv::FeatureDetector* detector = NULL, cv::DescriptorExtractor* extractor = NULL);
     ~ImgObject(void);
 
     cv::Mat& getImg();

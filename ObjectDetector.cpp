@@ -11,33 +11,18 @@
 #define FONT_THICKNESS 3
 #define FONT_RATIO 4
 
-ObjectDetector::ObjectDetector() : scene_(ImgObject()) {}
+ObjectDetector::ObjectDetector() {}
 
-ObjectDetector::ObjectDetector(NoteImgObject& object, ImgObject& scene,
-                               cv::FeatureDetector* feature_detector, cv::DescriptorExtractor* descriptor_extractor,
-                               cv::DescriptorMatcher* descriptor_matcher) :
-scene_(scene) {
-
-    feature_detector_ = feature_detector;
-    descriptor_extractor_ = descriptor_extractor;
-    descriptor_matcher_ = descriptor_matcher;
-    
-    object_ = &object;
-    object_->compute(feature_detector_, descriptor_extractor_);
-    scene_.compute(feature_detector_, descriptor_extractor_);
-}
-
-ObjectDetector::ObjectDetector(ImgObject& scene, cv::FeatureDetector* feature_detector, 
+ObjectDetector::ObjectDetector(std::string scene_filename, cv::FeatureDetector* feature_detector, 
         cv::DescriptorExtractor* descriptor_extractor,
-        cv::DescriptorMatcher* descriptor_matcher) : scene_(scene) {
-    
+        cv::DescriptorMatcher* descriptor_matcher) {
+         
     feature_detector_ = feature_detector;
     descriptor_extractor_ = descriptor_extractor;
     descriptor_matcher_ = descriptor_matcher;
 
-    scene_.compute(feature_detector_, descriptor_extractor_);
+    scene_ = ImgObject(scene_filename, feature_detector_, descriptor_extractor_);
 }
-
 
 ObjectDetector::~ObjectDetector(void) {}
 
@@ -79,8 +64,7 @@ bool ObjectDetector::iterate() {
 
         cv::Mat img_matches;
         drawMatches( object_->getImg(), object_->getKeypoints(), scene_.getImg(), scene_.getKeypoints(),
-            good_matches, img_matches,cv::Scalar::all(-1), cv::Scalar(0,0,255),
-            cv::vector<char>());
+            good_matches, img_matches,cv::Scalar::all(-1), cv::Scalar(0,0,255));
         cv::imshow("Good Matches & Object detection", img_matches);
         cv::waitKey(0);
 
@@ -107,24 +91,23 @@ bool ObjectDetector::iterate() {
     }
 
     cv::Mat img_matches;
-    drawMatches( object_->getImg(), object_->getKeypoints(), scene_.getImg(), scene_.getKeypoints(),
-        inlier_matches, img_matches,cv::Scalar::all(-1), cv::Scalar(0,0,255),
-        cv::vector<char>());
+    drawMatches(object_->getImg(), object_->getKeypoints(), scene_.getImg(), scene_.getKeypoints(),
+        inlier_matches, img_matches,cv::Scalar::all(-1), cv::Scalar(0,0,255));
 
     std::vector<cv::Point2f> scene_corners(4);
     cv::perspectiveTransform(object_->getCorners(), scene_corners, homography);
 
-    cv::Point2f offset( (float)object_->getImg().cols, 0);
-    line( img_matches, scene_corners[0] + offset, scene_corners[1] + offset, cv::Scalar(0, 255, 0), 4 );
-    line( img_matches, scene_corners[1] + offset, scene_corners[2] + offset, cv::Scalar( 0, 255, 0), 4 );
-    line( img_matches, scene_corners[2] + offset, scene_corners[3] + offset, cv::Scalar( 0, 255, 0), 4 );
-    line( img_matches, scene_corners[3] + offset, scene_corners[0] + offset, cv::Scalar( 0, 255, 0), 4 );
+    cv::Point2f offset((float) object_->getImg().cols, 0);
+    line(img_matches, scene_corners[0] + offset, scene_corners[1] + offset, cv::Scalar(0, 255, 0), 4 );
+    line(img_matches, scene_corners[1] + offset, scene_corners[2] + offset, cv::Scalar(0, 255, 0), 4 );
+    line(img_matches, scene_corners[2] + offset, scene_corners[3] + offset, cv::Scalar(0, 255, 0), 4 );
+    line(img_matches, scene_corners[3] + offset, scene_corners[0] + offset, cv::Scalar(0, 255, 0), 4 );
 
-    imshow( "Good Matches & Object detection", img_matches );
+    imshow("Good Matches & Object detection", img_matches);
 
     cv::waitKey(0);
 
-    if(!allPointsInsideCountour(scene_corners,inlier_points)) {
+    if(!allPointsInsideCountour(scene_corners, inlier_points)) {
         return false;
     }
 
@@ -138,10 +121,8 @@ bool ObjectDetector::iterate() {
 void ObjectDetector::findAllObjects() {
     for(unsigned int i = 0; i < object_library_.size(); ++i) {
         object_ = &object_library_[i];
-        bool found;
-        do {
-            found = iterate();
-        } while(found);
+
+        while(iterate());
         scene_.resetKeypoints();
     }
 

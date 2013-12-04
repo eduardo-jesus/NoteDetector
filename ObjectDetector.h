@@ -18,7 +18,7 @@ class ObjectDetector
 private:
     std::vector<NoteImgObject> object_library_;
     NoteImgObject* object_;
-    ImgObject& scene_;
+    ImgObject scene_;
 
     cv::FeatureDetector* feature_detector_;
     cv::DescriptorExtractor* descriptor_extractor_;
@@ -27,12 +27,7 @@ private:
     std::vector<FoundObject> objects_found_;
 public:
     ObjectDetector(void);
-    ObjectDetector(ImgObject& scene, cv::FeatureDetector* feature_detector, 
-        cv::DescriptorExtractor* descriptor_extractor,
-        cv::DescriptorMatcher* descriptor_matcher);
-    ObjectDetector(NoteImgObject& object,
-        ImgObject& scene,
-        cv::FeatureDetector* feature_detector, 
+    ObjectDetector(std::string scene_filename, cv::FeatureDetector* feature_detector, 
         cv::DescriptorExtractor* descriptor_extractor,
         cv::DescriptorMatcher* descriptor_matcher);
     ~ObjectDetector(void);

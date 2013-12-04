@@ -83,7 +83,7 @@ NoteImgObject NoteImgObject::create10Front(cv::FeatureDetector* detector, cv::De
     patches.push_back(ImgObject::createPatch(30, 366, 136, 464)); // left bottom
     patches.push_back(ImgObject::createPatch(584, 25, 774, 194)); // right top
     patches.push_back(ImgObject::createPatch(475, 102, 792, 451)); // arc
-    return NoteImgObject("notes/10euros_.jpg", 10, detector, extractor, patches);
+    return NoteImgObject("notes/10eu_r.jpg", 10, detector, extractor, patches);
 }
 
 NoteImgObject NoteImgObject::create10Back(cv::FeatureDetector* detector, cv::DescriptorExtractor* extractor) {

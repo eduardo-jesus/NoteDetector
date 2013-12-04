@@ -8,7 +8,7 @@
 
 ImgObject::ImgObject(void) {}
 
-ImgObject::ImgObject(std::string filename, cv::Feature2D* detector, cv::Feature2D* extractor) {//, std::vector<std::vector<cv::Point2f>> patches){
+ImgObject::ImgObject(std::string filename, cv::FeatureDetector* detector, cv::DescriptorExtractor* extractor) {
     img_ = cv::imread(filename, cv::IMREAD_GRAYSCALE);
     if(!img_.data) {
         std::cout << " Error reading " << filename << std::endl;
