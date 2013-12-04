@@ -1,12 +1,12 @@
 #include <iostream>
+
 #include "opencv2/highgui/highgui.hpp"
 #include "opencv2/nonfree/features2d.hpp"
 
 #include "ObjectDetector.h"
 
 int main(int argc, char** argv) {
-
-    ImgObject scene = ImgObject("notes/notes.png");
+    ImgObject scene = ImgObject((argc == 2) ? argv[1] : "notes/notes.png");
 
     cv::FeatureDetector* detector = new cv::SurfFeatureDetector(400);
     cv::DescriptorExtractor* extractor = new cv::SurfDescriptorExtractor();
