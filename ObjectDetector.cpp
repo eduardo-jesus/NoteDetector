@@ -149,6 +149,7 @@ void ObjectDetector::findAllObjects(bool wait) {
         cv::imshow("Cenas", img_to_show);
         cv::waitKey(0);
     }
+    objects_found_.clear();
 }
 
 void ObjectDetector::drawCountourWithText(cv::Mat& img, std::vector<cv::Point2f>& countour, std::string text) {

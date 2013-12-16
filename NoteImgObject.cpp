@@ -40,7 +40,7 @@ void NoteImgObject::selectKeyPoints(std::vector<cv::KeyPoint> keypoints) {
     if(patches_.empty()) {
         original_keypoints_ = keypoints;
     }
-
+    original_keypoints_.clear();
     for(unsigned int i = 0; i < keypoints.size(); ++i) {
         for(unsigned int j = 0; j < patches_.size(); ++j) {
             if(cv::pointPolygonTest(patches_[j], keypoints[i].pt, false) >= 0) {
@@ -79,10 +79,10 @@ NoteImgObject NoteImgObject::create5Back(cv::FeatureDetector* detector, cv::Desc
 
 NoteImgObject NoteImgObject::create10Front(cv::FeatureDetector* detector, cv::DescriptorExtractor* extractor) {
     std::vector<std::vector<cv::Point2f>> patches;
-    patches.push_back(ImgObject::createPatch(28, 36, 111, 108)); // left top
-    patches.push_back(ImgObject::createPatch(30, 366, 136, 464)); // left bottom
-    patches.push_back(ImgObject::createPatch(584, 25, 774, 194)); // right top
-    patches.push_back(ImgObject::createPatch(475, 102, 792, 451)); // arc
+    patches.push_back(ImgObject::createPatch(5,5,5+25,5+24)); // left top
+    patches.push_back(ImgObject::createPatch(5,104,5+32,104+29)); // left bottom
+    patches.push_back(ImgObject::createPatch(169,6,169+59,6+51)); // right top
+    patches.push_back(ImgObject::createPatch(135,29,135+96,29+102)); // arc
     return NoteImgObject("notes/10eu_r.jpg", 10, detector, extractor, patches);
 }
 

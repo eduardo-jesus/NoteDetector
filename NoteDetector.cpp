@@ -49,7 +49,7 @@ int main(int argc, char** argv) {
     cv::DescriptorExtractor* extractor =NULL; 
     cv::DescriptorMatcher* matcher = NULL;
 
-    std::string combinations[11][3] = {
+    std::string combinations[11][3] = { 
         {"FAST", "SURF",  "FlannBased"},
         {"SURF", "SURF",  "FlannBased"},
         {"FAST", "SIFT",  "FlannBased"},
@@ -89,7 +89,7 @@ int main(int argc, char** argv) {
             object_detector.computeAll(detector, extractor, matcher);
 
             QueryPerformanceCounter(&begin);
-            object_detector.findAllObjects(false);
+            object_detector.findAllObjects(true);
             QueryPerformanceCounter(&end);
 
             // elapsed time in milliseconds
