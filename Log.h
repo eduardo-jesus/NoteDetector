@@ -7,13 +7,14 @@
 
 class Log {
 public:
-    Log instance();
+    static Log& instance();
     void open(std::string filename);
     void debug(std::string message);
     void close();
 private:
-    static Log INSTANCE_;
-    Log();
+    Log() {};
+    Log(Log const&);
+    void operator=(Log const&);
 
     std::ofstream file_;
 };

@@ -1,8 +1,11 @@
 #include <iostream>
 
+#include "windows.h"
+
 #include "opencv2/highgui/highgui.hpp"
 #include "opencv2/nonfree/features2d.hpp"
 
+#include "Log.h"
 #include "ObjectDetector.h"
 
 void getCombination(std::string feature_name, std::string descriptor_name, std::string matcher_name,
@@ -37,6 +40,9 @@ void getCombination(std::string feature_name, std::string descriptor_name, std::
 }
 
 int main(int argc, char** argv) {
+    Log& log = Log::instance();
+    log.open("log.txt");
+
     bool testing = true;
 
     cv::FeatureDetector* detector = NULL; 
@@ -63,21 +69,41 @@ int main(int argc, char** argv) {
     object_detector.loadLibrary();
 
     if (testing) {
-        std::cout << "Feature Detector" << "\t" << "Descriptor Extractor" << "\t" << "Matcher Type" << "\n"; 
-        for (int i = 0; i < 10; ++i) {
-            std::cout << combinations[i][0] << "\t" << combinations[i][1] << "\t" << combinations[i][2] << "\n"; 
+        LARGE_INTEGER frequency; // ticks per second
+        LARGE_INTEGER begin, end;
+        double elapsed_time;
+
+        std::stringstream ss;
+
+        QueryPerformanceFrequency(&frequency);
+
+        for (int i = 0; i < 11; ++i) {
+            log.debug(
+                "Feature Detector: " + combinations[i][0] + " " +
+                "Descriptor Extractor: " + combinations[i][1] + " " +
+                "Matcher Type: " + combinations[i][2] + "\n"
+                );
             getCombination(combinations[i][0], combinations[i][1], combinations[i][2],
                            detector, extractor, matcher);
 
             object_detector.computeAll(detector, extractor, matcher);
 
+            QueryPerformanceCounter(&begin);
             object_detector.findAllObjects(false);
+            QueryPerformanceCounter(&end);
+
+            // elapsed time in milliseconds
+            elapsed_time = (end.QuadPart - begin.QuadPart) * 1000.0 / frequency.QuadPart;
+
+            ss << "Elapsed time: " << elapsed_time << " ms\n";
+            log.debug(ss.str());
+            ss.str("");
 
             delete detector;
-            detector = NULL;
             delete extractor;
-            extractor = NULL;
             delete matcher;
+            extractor = NULL;
+            detector = NULL;
             matcher = NULL;
         }
     } else {
@@ -85,6 +111,8 @@ int main(int argc, char** argv) {
         extractor = new cv::SurfDescriptorExtractor();
         matcher = new cv::BFMatcher();
     }
+
+    log.close();
 
     return 0;
 }

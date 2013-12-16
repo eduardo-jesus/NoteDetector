@@ -1,5 +1,10 @@
 #include "Log.h"
 
+Log& Log::instance() {
+    static Log instance;
+    return instance;
+}
+
 void Log::open(std::string filename) {
     file_.open(filename, std::ios::out | std::ios::trunc);
 }

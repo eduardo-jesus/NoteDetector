@@ -70,12 +70,14 @@
     <ClInclude Include="ImgObject.h" />
     <ClInclude Include="NoteImgObject.h" />
     <ClInclude Include="ObjectDetector.h" />
+    <ClInclude Include="Log.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="NoteDetector.cpp" />
     <ClCompile Include="ImgObject.cpp" />
     <ClCompile Include="NoteImgObject.cpp" />
     <ClCompile Include="ObjectDetector.cpp" />
+    <ClCompile Include="Log.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
