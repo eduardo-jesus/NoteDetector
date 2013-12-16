@@ -39,6 +39,7 @@ std::vector<cv::Point2f>& NoteImgObject::getCorners() {
 void NoteImgObject::selectKeyPoints(std::vector<cv::KeyPoint> keypoints) {
     if(patches_.empty()) {
         original_keypoints_ = keypoints;
+        return;
     }
     original_keypoints_.clear();
     for(unsigned int i = 0; i < keypoints.size(); ++i) {
