@@ -7,6 +7,8 @@
 
 #include "ObjectDetector.h"
 
+#include "Log.h"
+
 #define FONT_FACE cv::FONT_HERSHEY_SCRIPT_COMPLEX
 #define FONT_THICKNESS 3
 #define FONT_RATIO 4
@@ -140,6 +142,8 @@ void ObjectDetector::findAllObjects(bool wait) {
 
     std::stringstream ss;
     ss << total;
+
+    Log::instance().debug("Total amount: " + ss.str() + "\n");
 
     int baseline = 0;
     cv::Size text_size = cv::getTextSize(ss.str(), FONT_FACE, 1, FONT_THICKNESS, &baseline);

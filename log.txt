@@ -1,0 +1,7 @@
+Feature Detector: FAST Descriptor Extractor: SURF Matcher Type: FlannBased
+Total amount: 45Elapsed time: 34478.8 ms
+Feature Detector: SURF Descriptor Extractor: SURF Matcher Type: FlannBased
+Total amount: 45Elapsed time: 16303 ms
+Feature Detector: FAST Descriptor Extractor: SIFT Matcher Type: FlannBased
+Total amount: 120Elapsed time: 70415.7 ms
+Feature Detector: SIFT Descriptor Extractor: SIFT Matcher Type: FlannBased
