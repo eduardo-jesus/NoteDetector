@@ -29,9 +29,6 @@
     <ClCompile Include="ImgObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="NoteImgObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

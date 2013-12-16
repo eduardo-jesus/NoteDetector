@@ -6,15 +6,13 @@
 
 #include "NoteImgObject.h"
 
-struct FoundObject
-{
+struct FoundObject {
     FoundObject(std::vector<cv::Point2f> countour, int value) : countour_(countour), value_(value) {};
     std::vector<cv::Point2f> countour_;
     int value_; 
 };
 
-class ObjectDetector
-{
+class ObjectDetector {
 private:
     std::vector<NoteImgObject> object_library_;
     NoteImgObject* object_;
@@ -33,9 +31,9 @@ public:
     ~ObjectDetector(void);
 
     void loadLibrary();
-
-    bool iterate();
-    void findAllObjects();
+    void computeAll(cv::FeatureDetector* detector, cv::DescriptorExtractor* extractor, cv::DescriptorMatcher* matcher);
+    bool iterate(bool wait);
+    void findAllObjects(bool wait);
     bool allPointsInsideCountour(std::vector<cv::Point2f> countour, std::vector<cv::Point2f> inliers);
     void drawCountourWithText(cv::Mat& img, std::vector<cv::Point2f>& countour, std::string text);
     void drawFoundObject(cv::Mat& img, FoundObject found_object);

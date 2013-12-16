@@ -37,7 +37,7 @@ void ObjectDetector::loadLibrary() {
     object_library_.push_back(NoteImgObject::create50Back(feature_detector_, descriptor_extractor_));
 }
 
-bool ObjectDetector::iterate() {
+bool ObjectDetector::iterate(bool wait) {
     std::vector<cv::DMatch> matches, good_matches;
     descriptor_matcher_->match(object_->getDescriptors(), scene_.getDescriptors(), matches);
 
@@ -65,8 +65,11 @@ bool ObjectDetector::iterate() {
         cv::Mat img_matches;
         drawMatches( object_->getImg(), object_->getKeypoints(), scene_.getImg(), scene_.getKeypoints(),
             good_matches, img_matches,cv::Scalar::all(-1), cv::Scalar(0,0,255));
-        cv::imshow("Good Matches & Object detection", img_matches);
-        cv::waitKey(0);
+        if (wait) {
+            cv::imshow("Good Matches & Object detection", img_matches);
+            cv::waitKey(0);
+        }
+        
 
         return false;
     }
@@ -103,9 +106,10 @@ bool ObjectDetector::iterate() {
     line(img_matches, scene_corners[2] + offset, scene_corners[3] + offset, cv::Scalar(0, 255, 0), 4 );
     line(img_matches, scene_corners[3] + offset, scene_corners[0] + offset, cv::Scalar(0, 255, 0), 4 );
 
-    imshow("Good Matches & Object detection", img_matches);
-
-    cv::waitKey(0);
+    if (wait) {
+        imshow("Good Matches & Object detection", img_matches);
+        cv::waitKey(0);
+    }
 
     if(!allPointsInsideCountour(scene_corners, inlier_points)) {
         return false;
@@ -118,11 +122,11 @@ bool ObjectDetector::iterate() {
     return true;
 }
 
-void ObjectDetector::findAllObjects() {
+void ObjectDetector::findAllObjects(bool wait) {
     for(unsigned int i = 0; i < object_library_.size(); ++i) {
         object_ = &object_library_[i];
 
-        while(iterate());
+        while(iterate(wait));
         scene_.resetKeypoints();
     }
 
@@ -141,8 +145,10 @@ void ObjectDetector::findAllObjects() {
     cv::Size text_size = cv::getTextSize(ss.str(), FONT_FACE, 1, FONT_THICKNESS, &baseline);
     cv::putText(img_to_show, ss.str(), cv::Point(5, text_size.height + 5), FONT_FACE, 1, cv::Scalar(255,0,0), FONT_THICKNESS);
 
-    cv::imshow("Cenas", img_to_show);
-    cv::waitKey(0);
+    if (wait) {
+        cv::imshow("Cenas", img_to_show);
+        cv::waitKey(0);
+    }
 }
 
 void ObjectDetector::drawCountourWithText(cv::Mat& img, std::vector<cv::Point2f>& countour, std::string text) {
@@ -178,4 +184,16 @@ bool ObjectDetector::allPointsInsideCountour(std::vector<cv::Point2f> countour, 
         }
     }
     return true;
+}
+
+void ObjectDetector::computeAll(cv::FeatureDetector* detector, cv::DescriptorExtractor* extractor, cv::DescriptorMatcher* matcher) {
+    feature_detector_ = detector;
+    descriptor_extractor_ = extractor;
+    descriptor_matcher_ = matcher;
+
+    for (unsigned i = 0; i < object_library_.size(); ++i) {
+        object_library_[i].compute(feature_detector_, descriptor_extractor_);
+    }
+
+    scene_.compute(feature_detector_, descriptor_extractor_);
 }

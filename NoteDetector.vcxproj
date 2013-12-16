@@ -74,7 +74,6 @@
   <ItemGroup>
     <ClCompile Include="NoteDetector.cpp" />
     <ClCompile Include="ImgObject.cpp" />
-    <ClCompile Include="main.cpp" />
     <ClCompile Include="NoteImgObject.cpp" />
     <ClCompile Include="ObjectDetector.cpp" />
   </ItemGroup>
