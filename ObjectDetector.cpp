@@ -31,6 +31,8 @@ ObjectDetector::~ObjectDetector(void) {}
 void ObjectDetector::loadLibrary(bool with_patches) {
     object_library_.push_back(NoteImgObject::create5Front(with_patches, feature_detector_, descriptor_extractor_));
     object_library_.push_back(NoteImgObject::create5Back(with_patches, feature_detector_, descriptor_extractor_));
+    object_library_.push_back(NoteImgObject::create5NFront(with_patches, feature_detector_, descriptor_extractor_));
+    object_library_.push_back(NoteImgObject::create5NBack(with_patches, feature_detector_, descriptor_extractor_));
     object_library_.push_back(NoteImgObject::create10Front(with_patches, feature_detector_, descriptor_extractor_));
     object_library_.push_back(NoteImgObject::create10Back(with_patches, feature_detector_, descriptor_extractor_));
     object_library_.push_back(NoteImgObject::create20Front(with_patches, feature_detector_, descriptor_extractor_));

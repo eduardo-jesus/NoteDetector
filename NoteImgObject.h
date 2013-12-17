@@ -25,7 +25,9 @@ public:
     void detectKeypoints(cv::FeatureDetector* detector);
 
     static NoteImgObject create5Front(bool with_patches, cv::FeatureDetector* detector = NULL, cv::DescriptorExtractor* extractor = NULL);
+    static NoteImgObject create5NFront(bool with_patches, cv::FeatureDetector* detector = NULL, cv::DescriptorExtractor* extractor = NULL);
     static NoteImgObject create5Back(bool with_patches, cv::FeatureDetector* detector = NULL, cv::DescriptorExtractor* extractor = NULL);
+    static NoteImgObject create5NBack(bool with_patches, cv::FeatureDetector* detector = NULL, cv::DescriptorExtractor* extractor = NULL);
     static NoteImgObject create10Front(bool with_patches, cv::FeatureDetector* detector = NULL, cv::DescriptorExtractor* extractor = NULL);
     static NoteImgObject create10Back(bool with_patches, cv::FeatureDetector* detector = NULL, cv::DescriptorExtractor* extractor = NULL);
     static NoteImgObject create20Front(bool with_patches, cv::FeatureDetector* detector = NULL, cv::DescriptorExtractor* extractor = NULL);

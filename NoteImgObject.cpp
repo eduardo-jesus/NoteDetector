@@ -80,6 +80,16 @@ NoteImgObject NoteImgObject::create5Front(bool with_patches, cv::FeatureDetector
     return NoteImgObject("5F", "notes/5eu_r.jpg", 5, detector, extractor, patches);
 }
 
+NoteImgObject NoteImgObject::create5NFront(bool with_patches, cv::FeatureDetector* detector, cv::DescriptorExtractor* extractor) {
+    std::vector<std::vector<cv::Point2f>> patches;
+    if (with_patches) {
+        patches.push_back(ImgObject::createPatch(175,19,175+50,19+79));
+        patches.push_back(ImgObject::createPatch(46,177,46+36,177+54));
+        patches.push_back(ImgObject::createPatch(236,33,236+169,33+201));
+    }
+    return NoteImgObject("5NF", "notes/5_new_front.png", 5, detector, extractor, patches);
+}
+
 NoteImgObject NoteImgObject::create5Back(bool with_patches, cv::FeatureDetector* detector, cv::DescriptorExtractor* extractor) {
     std::vector<std::vector<cv::Point2f>> patches;
     if (with_patches) {
@@ -89,6 +99,15 @@ NoteImgObject NoteImgObject::create5Back(bool with_patches, cv::FeatureDetector*
         patches.push_back(ImgObject::createPatch(241,106,241+15,106+24)); // right bottom
     }
     return NoteImgObject("5B", "notes/5eu_v.jpg", 5, detector, extractor, patches);
+}
+
+NoteImgObject NoteImgObject::create5NBack(bool with_patches, cv::FeatureDetector* detector, cv::DescriptorExtractor* extractor) {
+    std::vector<std::vector<cv::Point2f>> patches;
+    if (with_patches) {
+        patches.push_back(ImgObject::createPatch(17,14,17+305,14+73));
+        patches.push_back(ImgObject::createPatch(327,157, 327+59,157+94));
+    }
+    return NoteImgObject("5NB", "notes/5_new_back.png", 5, detector, extractor, patches);
 }
 
 NoteImgObject NoteImgObject::create10Front(bool with_patches, cv::FeatureDetector* detector, cv::DescriptorExtractor* extractor) {

@@ -1,0 +1,416 @@
+NUMBER OF KEYPOINTS
+5F: 100
+5B: 56
+5NF: 151
+5NB: 135
+10F: 125
+10B: 34
+20F: 125
+20B: 74
+50F: 108
+50B: 81
+scene: 350
+
+5F
+	Matches: 100
+	Good matches: 100
+	Inlier points: 8
+	Inlier outside contour
+__________________________________________________
+5B
+	Matches: 56
+	Good matches: 56
+	Inlier points: 7
+	Inlier outside contour
+__________________________________________________
+5NF
+	Matches: 151
+	Good matches: 28
+	Inlier points: 25
+	Found: 5NF
+_____________________________________
+	Matches: 151
+	Good matches: 151
+	Inlier points: 9
+	Inlier outside contour
+__________________________________________________
+5NB
+	Matches: 135
+	Good matches: 112
+	Inlier points: 14
+	Inlier outside contour
+__________________________________________________
+10F
+	Matches: 125
+	Good matches: 125
+	Inlier points: 8
+	Inlier outside contour
+__________________________________________________
+10B
+	Matches: 34
+	Good matches: 34
+	Inlier points: 7
+	Inlier outside contour
+__________________________________________________
+20F
+	Matches: 125
+	Good matches: 119
+	Inlier points: 9
+	Inlier outside contour
+__________________________________________________
+20B
+	Matches: 74
+	Good matches: 60
+	Inlier points: 8
+	Inlier outside contour
+__________________________________________________
+50F
+	Matches: 108
+	Good matches: 93
+	Inlier points: 10
+	Found: 50F
+_____________________________________
+	Matches: 108
+	Good matches: 108
+	Inlier points: 8
+	Inlier outside contour
+__________________________________________________
+50B
+	Matches: 81
+	Good matches: 81
+	Inlier points: 7
+	Inlier outside contour
+__________________________________________________
+Total amount: 55
+NUMBER OF KEYPOINTS
+5F: 115
+5B: 124
+5NF: 188
+5NB: 177
+10F: 100
+10B: 94
+20F: 202
+20B: 116
+50F: 141
+50B: 110
+scene: 575
+
+5F
+	Matches: 115
+	Good matches: 51
+	Inlier points: 9
+	Inlier outside contour
+__________________________________________________
+5B
+	Matches: 124
+	Good matches: 31
+	Inlier points: 5
+	Found: 5B
+_____________________________________
+	Matches: 124
+	Good matches: 3
+	Needed 4 points to calculate homography. Have 3
+______________________________________
+5NF
+	Matches: 188
+	Good matches: 89
+	Inlier points: 82
+	Found: 5NF
+_____________________________________
+	Matches: 188
+	Good matches: 84
+	Inlier points: 13
+	Inlier outside contour
+__________________________________________________
+5NB
+	Matches: 177
+	Good matches: 55
+	Inlier points: 11
+	Inlier outside contour
+__________________________________________________
+10F
+	Matches: 100
+	Good matches: 40
+	Inlier points: 9
+	Inlier outside contour
+__________________________________________________
+10B
+	Matches: 94
+	Good matches: 43
+	Inlier points: 9
+	Inlier outside contour
+__________________________________________________
+20F
+	Matches: 202
+	Good matches: 97
+	Inlier points: 17
+	Inlier outside contour
+__________________________________________________
+20B
+	Matches: 116
+	Good matches: 43
+	Inlier points: 8
+	Inlier outside contour
+__________________________________________________
+50F
+	Matches: 141
+	Good matches: 87
+	Inlier points: 38
+	Found: 50F
+_____________________________________
+	Matches: 141
+	Good matches: 51
+	Inlier points: 8
+	Inlier outside contour
+__________________________________________________
+50B
+	Matches: 110
+	Good matches: 53
+	Inlier points: 8
+	Inlier outside contour
+__________________________________________________
+Total amount: 60
+NUMBER OF KEYPOINTS
+5F: 115
+5B: 124
+5NF: 188
+5NB: 177
+10F: 100
+10B: 94
+20F: 202
+20B: 116
+50F: 141
+50B: 110
+scene: 575
+
+5F
+	Matches: 115
+	Good matches: 51
+	Inlier points: 9
+	Inlier outside contour
+__________________________________________________
+5B
+	Matches: 124
+	Good matches: 31
+	Inlier points: 5
+	Found: 5B
+_____________________________________
+	Matches: 124
+	Good matches: 3
+	Needed 4 points to calculate homography. Have 3
+______________________________________
+5NF
+	Matches: 188
+	Good matches: 90
+	Inlier points: 83
+	Found: 5NF
+_____________________________________
+	Matches: 188
+	Good matches: 83
+	Inlier points: 12
+	Inlier outside contour
+__________________________________________________
+5NB
+	Matches: 177
+	Good matches: 54
+	Inlier points: 10
+	Inlier outside contour
+__________________________________________________
+10F
+	Matches: 100
+	Good matches: 39
+	Inlier points: 8
+	Inlier outside contour
+__________________________________________________
+10B
+	Matches: 94
+	Good matches: 44
+	Inlier points: 8
+	Inlier outside contour
+__________________________________________________
+20F
+	Matches: 202
+	Good matches: 93
+	Inlier points: 16
+	Inlier outside contour
+__________________________________________________
+20B
+	Matches: 116
+	Good matches: 44
+	Inlier points: 9
+	Found: 20B
+_____________________________________
+	Matches: 116
+	Good matches: 29
+	Inlier points: 8
+	Inlier outside contour
+__________________________________________________
+50F
+	Matches: 141
+	Good matches: 88
+	Inlier points: 35
+	Found: 50F
+_____________________________________
+	Matches: 141
+	Good matches: 51
+	Inlier points: 8
+	Inlier outside contour
+__________________________________________________
+50B
+	Matches: 110
+	Good matches: 53
+	Inlier points: 8
+	Inlier outside contour
+__________________________________________________
+Total amount: 80
+NUMBER OF KEYPOINTS
+5F: 260
+5B: 69
+5NF: 218
+5NB: 49
+10F: 273
+10B: 31
+20F: 276
+20B: 42
+50F: 233
+50B: 45
+scene: 500
+
+5F
+	Matches: 167
+	Good matches: 167
+	Inlier points: 10
+	Inlier outside contour
+__________________________________________________
+5B
+	Matches: 62
+	Good matches: 62
+	Inlier points: 9
+	Inlier outside contour
+__________________________________________________
+5NF
+	Matches: 159
+	Good matches: 18
+	Inlier points: 8
+	Found: 5NF
+_____________________________________
+	Matches: 127
+	Good matches: 127
+	Inlier points: 9
+	Inlier outside contour
+__________________________________________________
+5NB
+	Matches: 47
+	Good matches: 47
+	Inlier points: 7
+	Inlier outside contour
+__________________________________________________
+10F
+	Matches: 171
+	Good matches: 171
+	Inlier points: 9
+	Inlier outside contour
+__________________________________________________
+10B
+	Matches: 31
+	Good matches: 31
+	Inlier points: 6
+	Inlier outside contour
+__________________________________________________
+20F
+	Matches: 161
+	Good matches: 161
+	Inlier points: 10
+	Inlier outside contour
+__________________________________________________
+20B
+	Matches: 40
+	Good matches: 40
+	Inlier points: 7
+	Inlier outside contour
+__________________________________________________
+50F
+	Matches: 158
+	Good matches: 158
+	Inlier points: 8
+	Inlier outside contour
+__________________________________________________
+50B
+	Matches: 45
+	Good matches: 45
+	Inlier points: 7
+	Inlier outside contour
+__________________________________________________
+Total amount: 5
+NUMBER OF KEYPOINTS
+5F: 5
+5B: 2
+5NF: 74
+5NB: 31
+10F: 13
+10B: 0
+20F: 16
+20B: 4
+50F: 17
+50B: 4
+scene: 241
+
+5F
+	Matches: 5
+	Good matches: 5
+	Inlier points: 4
+	Inlier outside contour
+__________________________________________________
+5B
+	Matches: 2
+	Good matches: 2
+	Needed 4 points to calculate homography. Have 2
+______________________________________
+5NF
+	Matches: 54
+	Good matches: 12
+	Inlier points: 5
+	Inlier outside contour
+__________________________________________________
+5NB
+	Matches: 29
+	Good matches: 29
+	Inlier points: 5
+	Inlier outside contour
+__________________________________________________
+10F
+	Matches: 13
+	Good matches: 13
+	Inlier points: 4
+	Inlier outside contour
+__________________________________________________
+10B
+	Matches: 0
+	Good matches: 0
+	Needed 4 points to calculate homography. Have 0
+______________________________________
+20F
+	Matches: 16
+	Good matches: 16
+	Inlier points: 5
+	Inlier outside contour
+__________________________________________________
+20B
+	Matches: 4
+	Good matches: 4
+	Inlier points: 4
+	Inlier outside contour
+__________________________________________________
+50F
+	Matches: 17
+	Good matches: 17
+	Inlier points: 4
+	Inlier outside contour
+__________________________________________________
+50B
+	Matches: 4
+	Good matches: 4
+	Inlier points: 4
+	Inlier outside contour
+__________________________________________________
+Total amount: 0
