@@ -1,4 +1,15 @@
 Feature Detector: SURF Descriptor Extractor: SURF Matcher Type: Bruteforce
+NUMBER OF KEYPOINTS
+5F: 100
+5B: 56
+10F: 125
+10B: 34
+20F: 125
+20B: 74
+50F: 108
+50B: 81
+scene: 324
+
 5F
 	Matches: 100
 	Good matches: 100
@@ -50,8 +61,19 @@ __________________________________________________
 	Inlier outside contour
 __________________________________________________
 Total amount: 10
-Elapsed time: 1715.58 ms
+Elapsed time: 35882.9 ms
 Feature Detector: FAST Descriptor Extractor: SURF Matcher Type: FlannBased
+NUMBER OF KEYPOINTS
+5F: 907
+5B: 667
+10F: 796
+10B: 547
+20F: 905
+20B: 661
+50F: 628
+50B: 776
+scene: 702
+
 5F
 	Matches: 907
 	Good matches: 671
@@ -101,8 +123,19 @@ __________________________________________________
 	Inlier outside contour
 __________________________________________________
 Total amount: 0
-Elapsed time: 6143.03 ms
+Elapsed time: 59220.4 ms
 Feature Detector: SURF Descriptor Extractor: SURF Matcher Type: FlannBased
+NUMBER OF KEYPOINTS
+5F: 100
+5B: 56
+10F: 125
+10B: 34
+20F: 125
+20B: 74
+50F: 108
+50B: 81
+scene: 324
+
 5F
 	Matches: 100
 	Good matches: 100
@@ -157,8 +190,19 @@ __________________________________________________
 	Inlier outside contour
 __________________________________________________
 Total amount: 10
-Elapsed time: 2144.26 ms
+Elapsed time: 30914.9 ms
 Feature Detector: FAST Descriptor Extractor: SIFT Matcher Type: FlannBased
+NUMBER OF KEYPOINTS
+5F: 907
+5B: 667
+10F: 796
+10B: 547
+20F: 905
+20B: 661
+50F: 628
+50B: 776
+scene: 702
+
 5F
 	Matches: 907
 	Good matches: 132
@@ -208,8 +252,19 @@ __________________________________________________
 	Inlier outside contour
 __________________________________________________
 Total amount: 0
-Elapsed time: 5758.59 ms
+Elapsed time: 13049 ms
 Feature Detector: SIFT Descriptor Extractor: SIFT Matcher Type: FlannBased
+NUMBER OF KEYPOINTS
+5F: 115
+5B: 124
+10F: 100
+10B: 94
+20F: 202
+20B: 116
+50F: 141
+50B: 110
+scene: 370
+
 5F
 	Matches: 115
 	Good matches: 45
@@ -263,8 +318,19 @@ __________________________________________________
 	Inlier outside contour
 __________________________________________________
 Total amount: 10
-Elapsed time: 1946.79 ms
+Elapsed time: 71017 ms
 Feature Detector: FAST Descriptor Extractor: ORB Matcher Type: Bruteforce
+NUMBER OF KEYPOINTS
+5F: 563
+5B: 288
+10F: 535
+10B: 151
+20F: 538
+20B: 285
+50F: 419
+50B: 308
+scene: 702
+
 5F
 	Matches: 282
 	Good matches: 282
@@ -314,8 +380,19 @@ __________________________________________________
 	Inlier outside contour
 __________________________________________________
 Total amount: 0
-Elapsed time: 2234.28 ms
+Elapsed time: 38029.8 ms
 Feature Detector: ORB Descriptor Extractor: ORB Matcher Type: Bruteforce
+NUMBER OF KEYPOINTS
+5F: 260
+5B: 69
+10F: 273
+10B: 31
+20F: 276
+20B: 42
+50F: 233
+50B: 45
+scene: 500
+
 5F
 	Matches: 165
 	Good matches: 165
@@ -365,8 +442,19 @@ __________________________________________________
 	Inlier outside contour
 __________________________________________________
 Total amount: 0
-Elapsed time: 2078.7 ms
+Elapsed time: 15171.9 ms
 Feature Detector: FAST Descriptor Extractor: BRIEF Matcher Type: Bruteforce
+NUMBER OF KEYPOINTS
+5F: 599
+5B: 320
+10F: 568
+10B: 169
+20F: 581
+20B: 303
+50F: 451
+50B: 350
+scene: 702
+
 5F
 	Matches: 317
 	Good matches: 208
@@ -416,8 +504,19 @@ __________________________________________________
 	Inlier outside contour
 __________________________________________________
 Total amount: 0
-Elapsed time: 2211.56 ms
+Elapsed time: 8686.33 ms
 Feature Detector: ORB Descriptor Extractor: BRIEF Matcher Type: Bruteforce
+NUMBER OF KEYPOINTS
+5F: 260
+5B: 69
+10F: 273
+10B: 31
+20F: 276
+20B: 42
+50F: 233
+50B: 45
+scene: 500
+
 5F
 	Matches: 110
 	Good matches: 71
@@ -467,8 +566,19 @@ __________________________________________________
 	Inlier outside contour
 __________________________________________________
 Total amount: 0
-Elapsed time: 1951.62 ms
+Elapsed time: 9454.91 ms
 Feature Detector: FAST Descriptor Extractor: FREAK Matcher Type: Bruteforce
+NUMBER OF KEYPOINTS
+5F: 663
+5B: 372
+10F: 620
+10B: 207
+20F: 634
+20B: 342
+50F: 492
+50B: 406
+scene: 702
+
 5F
 	Matches: 303
 	Good matches: 264
@@ -518,8 +628,19 @@ __________________________________________________
 	Inlier outside contour
 __________________________________________________
 Total amount: 0
-Elapsed time: 2422.94 ms
+Elapsed time: 7651.93 ms
 Feature Detector: SURF Descriptor Extractor: FREAK Matcher Type: Bruteforce
+NUMBER OF KEYPOINTS
+5F: 5
+5B: 2
+10F: 13
+10B: 0
+20F: 16
+20B: 4
+50F: 17
+50B: 4
+scene: 234
+
 5F
 	Matches: 5
 	Good matches: 5
@@ -567,4 +688,4 @@ __________________________________________________
 	Inlier outside contour
 __________________________________________________
 Total amount: 0
-Elapsed time: 403.528 ms
+Elapsed time: 36960.5 ms

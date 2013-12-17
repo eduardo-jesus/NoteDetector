@@ -81,20 +81,20 @@ int main(int argc, char** argv) {
         std::stringstream ss;
 
         QueryPerformanceFrequency(&frequency);
-
+        
+        std::string used_algorithms;
         for (int i = 0; i < 11; ++i) {
-            log.debug(
-                "Feature Detector: " + combinations[i][0] + " " +
+            used_algorithms = "Feature Detector: " + combinations[i][0] + " " +
                 "Descriptor Extractor: " + combinations[i][1] + " " +
-                "Matcher Type: " + combinations[i][2] + "\n"
-                );
+                "Matcher Type: " + combinations[i][2] + "\n";
+            log.debug(used_algorithms);
             getCombination(combinations[i][0], combinations[i][1], combinations[i][2],
                            detector, extractor, matcher);
 
-            object_detector.computeAll(detector, extractor, matcher);
+            object_detector.computeAll(used_algorithms, detector, extractor, matcher);
 
             QueryPerformanceCounter(&begin);
-            object_detector.findAllObjects(false);
+            object_detector.findAllObjects(true);
             QueryPerformanceCounter(&end);
 
             // elapsed time in milliseconds

@@ -19,6 +19,7 @@ private:
     NoteImgObject* object_;
     ImgObject scene_;
 
+    std::string used_algorithms_;
     cv::FeatureDetector* feature_detector_;
     cv::DescriptorExtractor* descriptor_extractor_;
     cv::DescriptorMatcher* descriptor_matcher_;
@@ -32,7 +33,7 @@ public:
     ~ObjectDetector(void);
 
     void loadLibrary(bool with_patches);
-    void computeAll(cv::FeatureDetector* detector, cv::DescriptorExtractor* extractor, cv::DescriptorMatcher* matcher);
+    void computeAll(std::string used_algorithms, cv::FeatureDetector* detector, cv::DescriptorExtractor* extractor, cv::DescriptorMatcher* matcher);
     bool iterate(bool wait);
     void findAllObjects(bool wait);
     bool allPointsInsideCountour(std::vector<cv::Point2f> countour, std::vector<cv::Point2f> inliers);

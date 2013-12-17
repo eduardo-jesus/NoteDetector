@@ -84,7 +84,7 @@ bool ObjectDetector::iterate(bool wait) {
         drawMatches( object_->getImg(), object_->getKeypoints(), scene_.getImg(), scene_.getKeypoints(),
             good_matches, img_matches,cv::Scalar::all(-1), cv::Scalar(0,0,255));
         if (wait) {
-            cv::imshow("Good Matches & Object detection", img_matches);
+            cv::imshow(used_algorithms_ + " - Iteration", img_matches);
             cv::waitKey(0);
         }
         
@@ -129,7 +129,7 @@ bool ObjectDetector::iterate(bool wait) {
     line(img_matches, scene_corners[3] + offset, scene_corners[0] + offset, cv::Scalar(0, 255, 0), 4 );
 
     if (wait) {
-        imshow("Good Matches & Object detection", img_matches);
+        imshow(used_algorithms_ + " - Iteration", img_matches);
         cv::waitKey(0);
     }
 
@@ -173,8 +173,10 @@ void ObjectDetector::findAllObjects(bool wait) {
     cv::putText(img_to_show, ss.str(), cv::Point(5, text_size.height + 5), FONT_FACE, 1, cv::Scalar(255,0,0), FONT_THICKNESS);
 
     if (wait) {
-        cv::imshow("Cenas", img_to_show);
+        cv::destroyWindow(used_algorithms_ + " - Iteration");
+        cv::imshow(used_algorithms_ + " - Result", img_to_show);
         cv::waitKey(0);
+        cv::destroyWindow(used_algorithms_ + " - Result");
     }
     objects_found_.clear();
 }
@@ -214,14 +216,23 @@ bool ObjectDetector::allPointsInsideCountour(std::vector<cv::Point2f> countour, 
     return true;
 }
 
-void ObjectDetector::computeAll(cv::FeatureDetector* detector, cv::DescriptorExtractor* extractor, cv::DescriptorMatcher* matcher) {
+void ObjectDetector::computeAll(std::string used_algorithms, cv::FeatureDetector* detector, cv::DescriptorExtractor* extractor, cv::DescriptorMatcher* matcher) {
+    used_algorithms_ = used_algorithms;
     feature_detector_ = detector;
     descriptor_extractor_ = extractor;
     descriptor_matcher_ = matcher;
 
+    Log::instance().debug("NUMBER OF KEYPOINTS\n");
+    std::stringstream ss;
     for (unsigned i = 0; i < object_library_.size(); ++i) {
         object_library_[i].compute(feature_detector_, descriptor_extractor_);
+
+        ss << object_library_[i].getTag() << ": " << object_library_[i].getKeypoints().size() << "\n";
+        Log::instance().debug(ss.str());
+        ss.str("");
     }
 
     scene_.compute(feature_detector_, descriptor_extractor_);
+    ss << "scene: " << scene_.getKeypoints().size() << "\n\n";
+    Log::instance().debug(ss.str());
 }
