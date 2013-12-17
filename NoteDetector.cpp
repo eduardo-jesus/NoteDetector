@@ -70,6 +70,7 @@ int main(int argc, char** argv) {
     bool testing = false;
     bool with_wait = true;
 
+    // Invalid number of arguments
     if (argc > 3) {
         std::cout << "Usage: " << argv[0] << " [<filename>] [-test]" << "\n";
         return 1;
@@ -77,6 +78,7 @@ int main(int argc, char** argv) {
 
     std::string filename = "";
 
+    // Checks parameters: filename (string) and testing mode (-t or -test)
     for (int i = 1; i < argc; ++i) {
         if (std::string(argv[i]) == "-test" || std::string(argv[i]) == "-t") {
             testing = true;
@@ -92,6 +94,8 @@ int main(int argc, char** argv) {
     cv::DescriptorExtractor* extractor =NULL; 
     cv::DescriptorMatcher* matcher = NULL;
 
+    // Combinations of feature detectors, descriptor extractor
+    // and matcher types
     std::string combinations[11][3] = {
         {"FAST", "SURF",  "FlannBased"},
         {"SURF", "SURF",  "FlannBased"},
@@ -106,10 +110,12 @@ int main(int argc, char** argv) {
         {"SURF", "SURF",  "Bruteforce"}   
     };
 
+    // Ask user the filename if none was provided as parameter
     if (filename == "") {
         filename = getInput("Filename: ");
     }
 
+    // If in normal mode, ask user if he wants to hide the windows with the analysis results
     if (!testing) {
         std::string answer = "";
         while (answer != "y" && answer != "Y" && answer != "n" && answer != "N") {
@@ -127,6 +133,9 @@ int main(int argc, char** argv) {
     object_detector.loadLibrary(true);
 
     if (testing) {
+        // -------------------------------------------------------------
+        // Test mode
+        // -------------------------------------------------------------
         LARGE_INTEGER frequency; // ticks per second
         LARGE_INTEGER begin, end;
         double elapsed_time;
@@ -136,6 +145,8 @@ int main(int argc, char** argv) {
         QueryPerformanceFrequency(&frequency);
         
         std::string used_algorithms;
+        // Test all available combinations. For each one, the elapsed time is recorded.
+        // Some of the inner function in this loop also record some metrics.
         for (int i = 0; i < 11; ++i) {
             used_algorithms = "Feature Detector: " + combinations[i][0] + " " +
                 "Descriptor Extractor: " + combinations[i][1] + " " +
@@ -165,6 +176,9 @@ int main(int argc, char** argv) {
             matcher = NULL;
         }
     } else {
+        // -------------------------------------------------------------
+        // Normal mode
+        // -------------------------------------------------------------
         int choice;
         while (true) {
             std::cout << "     Feature Detector | Descriptor Extractor | Matcher Type" << "\n"
@@ -174,6 +188,8 @@ int main(int argc, char** argv) {
                                                << " | " << std::setw(20) << combinations[i][1]
                                                << " | " << std::setw(12) << combinations[i][2] << "\n";
             }
+            std::cout << "-----------------------------------------------------------" << "\n"
+                      << "11 | " << std::setw(54) << "All combinations" << "\n";
             std::cout << "-----------------------------------------------------------" << "\n";
 
             choice = getInput("Option (-1 to exit): ", -1, 11);
@@ -182,22 +198,43 @@ int main(int argc, char** argv) {
                 break;
             }
 
-            getCombination(combinations[choice][0], combinations[choice][1], combinations[choice][2],
-                           detector, extractor, matcher);
+            if (choice == 11) {
+                for (int i = 0; i < 11; ++i) {
+                    std::string title = "Feature Detector: " + combinations[i][0] + " " +
+                        "Descriptor Extractor: " + combinations[i][1] + " " +
+                        "Matcher Type: " + combinations[i][2] + "\n";
+                    getCombination(combinations[i][0], combinations[i][1], combinations[i][2],
+                        detector, extractor, matcher);
 
-            std::string title = "Feature Detector: " + combinations[choice][0] + " " +
-                "Descriptor Extractor: " + combinations[choice][1] + " " +
-                "Matcher Type: " + combinations[choice][2] + "\n";
-            object_detector.computeAll(title, detector, extractor, matcher);
+                    object_detector.computeAll(title, detector, extractor, matcher);
 
-            object_detector.findAllObjects(true);
+                    object_detector.findAllObjects(with_wait);
 
-            delete detector;
-            delete extractor;
-            delete matcher;
-            extractor = NULL;
-            detector = NULL;
-            matcher = NULL;
+                    delete detector;
+                    delete extractor;
+                    delete matcher;
+                    extractor = NULL;
+                    detector = NULL;
+                    matcher = NULL;
+                }
+            } else {
+                getCombination(combinations[choice][0], combinations[choice][1], combinations[choice][2],
+                    detector, extractor, matcher);
+
+                std::string title = "Feature Detector: " + combinations[choice][0] + " " +
+                    "Descriptor Extractor: " + combinations[choice][1] + " " +
+                    "Matcher Type: " + combinations[choice][2] + "\n";
+                object_detector.computeAll(title, detector, extractor, matcher);
+
+                object_detector.findAllObjects(with_wait);
+
+                delete detector;
+                delete extractor;
+                delete matcher;
+                extractor = NULL;
+                detector = NULL;
+                matcher = NULL;
+            }
         }
     }
 

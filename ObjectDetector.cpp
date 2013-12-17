@@ -43,7 +43,7 @@ void ObjectDetector::loadLibrary(bool with_patches) {
 
 bool ObjectDetector::iterate(bool wait) {
     if (scene_.getDescriptors().rows == 0) {
-        Log::instance().debug("\tNo descriptors left.\n_________________________________________\n");
+        Log::instance().debug("\tNo descriptors left.\n__________________________________________________________________________\n");
         return false;
     }
 
@@ -79,7 +79,8 @@ bool ObjectDetector::iterate(bool wait) {
     ss.str("");
 
     if(good_matches.size() < 4) {
-        ss << "\tNeeded 4 points to calculate homography. Have " << good_matches.size() << "\n______________________________________\n";
+        ss << "\tNeeded 4 points to calculate homography. Have " << good_matches.size()
+           << "\n__________________________________________________________________________\n";
         Log::instance().debug(ss.str());
         ss.str("");
         cv::Mat img_matches;
@@ -136,7 +137,7 @@ bool ObjectDetector::iterate(bool wait) {
     }
 
     if(!allPointsInsideCountour(scene_corners, inlier_points)) {
-        Log::instance().debug("\tInlier outside contour\n__________________________________________________\n");
+        Log::instance().debug("\tInlier outside contour\n__________________________________________________________________________\n");
         return false;
     }
 
@@ -144,7 +145,7 @@ bool ObjectDetector::iterate(bool wait) {
 
     objects_found_.push_back(FoundObject(scene_corners, object_->getValue(), object_->getTag()));
 
-    Log::instance().debug("\tFound: " + object_->getTag() + "\n_____________________________________\n");
+    Log::instance().debug("\tFound: " + object_->getTag() + "\n__________________________________________________________________________\n");
 
     return true;
 }
@@ -224,7 +225,7 @@ void ObjectDetector::computeAll(std::string used_algorithms, cv::FeatureDetector
     descriptor_extractor_ = extractor;
     descriptor_matcher_ = matcher;
 
-    Log::instance().debug("NUMBER OF KEYPOINTS\n");
+    Log::instance().debug("Number of Keypoints\n");
     std::stringstream ss;
     for (unsigned i = 0; i < object_library_.size(); ++i) {
         object_library_[i].compute(feature_detector_, descriptor_extractor_);
