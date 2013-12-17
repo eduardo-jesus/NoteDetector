@@ -28,24 +28,35 @@ ObjectDetector::ObjectDetector(std::string scene_filename, cv::FeatureDetector* 
 
 ObjectDetector::~ObjectDetector(void) {}
 
-void ObjectDetector::loadLibrary() {
-    object_library_.push_back(NoteImgObject::create5Front(feature_detector_, descriptor_extractor_));
-    object_library_.push_back(NoteImgObject::create5Back(feature_detector_, descriptor_extractor_));
-    object_library_.push_back(NoteImgObject::create10Front(feature_detector_, descriptor_extractor_));
-    object_library_.push_back(NoteImgObject::create10Back(feature_detector_, descriptor_extractor_));
-    object_library_.push_back(NoteImgObject::create20Front(feature_detector_, descriptor_extractor_));
-    object_library_.push_back(NoteImgObject::create20Back(feature_detector_, descriptor_extractor_));
-    object_library_.push_back(NoteImgObject::create50Front(feature_detector_, descriptor_extractor_));
-    object_library_.push_back(NoteImgObject::create50Back(feature_detector_, descriptor_extractor_));
+void ObjectDetector::loadLibrary(bool with_patches) {
+    object_library_.push_back(NoteImgObject::create5Front(with_patches, feature_detector_, descriptor_extractor_));
+    object_library_.push_back(NoteImgObject::create5Back(with_patches, feature_detector_, descriptor_extractor_));
+    object_library_.push_back(NoteImgObject::create10Front(with_patches, feature_detector_, descriptor_extractor_));
+    object_library_.push_back(NoteImgObject::create10Back(with_patches, feature_detector_, descriptor_extractor_));
+    object_library_.push_back(NoteImgObject::create20Front(with_patches, feature_detector_, descriptor_extractor_));
+    object_library_.push_back(NoteImgObject::create20Back(with_patches, feature_detector_, descriptor_extractor_));
+    object_library_.push_back(NoteImgObject::create50Front(with_patches, feature_detector_, descriptor_extractor_));
+    object_library_.push_back(NoteImgObject::create50Back(with_patches, feature_detector_, descriptor_extractor_));
 }
 
 bool ObjectDetector::iterate(bool wait) {
-    std::vector<cv::DMatch> matches, good_matches;
-    descriptor_matcher_->match(object_->getDescriptors(), scene_.getDescriptors(), matches);
+    if (scene_.getDescriptors().rows == 0) {
+        Log::instance().debug("\tNo descriptors left.\n_________________________________________\n");
+        return false;
+    }
 
+    std::vector<cv::DMatch> matches, good_matches;
+
+    //std::cout << scene_.getDescriptors().rows << "\n";
+    
+    descriptor_matcher_->match(object_->getDescriptors(), scene_.getDescriptors(), matches);
+    std::stringstream ss;
+    ss << "\tMatches: " << matches.size() << "\n";
+    Log::instance().debug(ss.str());
+    ss.str("");
     double max_dist = 0;
     double min_dist = 100;
-    for(unsigned int i = 0; i < object_->getKeypoints().size(); ++i) {
+    for(unsigned int i = 0; i < /*object_->getKeypoints().size()*/matches.size(); ++i) {
         double dist = matches[i].distance;
         if(dist < min_dist) {
             min_dist = dist;
@@ -55,15 +66,20 @@ bool ObjectDetector::iterate(bool wait) {
         }
     }
 
-    for(unsigned int i = 0; i < object_->getKeypoints().size(); ++i) {
+    for(unsigned int i = 0; i < /*object_->getKeypoints().size()*/matches.size(); ++i) {
         if(matches[i].distance < 3 * min_dist) {
             good_matches.push_back(matches[i]);
         }
     }
 
-    if(good_matches.size() < 4) {
-        std::cout << "Needed 4 points to calculate homography. Have " << good_matches.size() << std::endl;
+    ss << "\tGood matches: " << good_matches.size() << "\n";
+    Log::instance().debug(ss.str());
+    ss.str("");
 
+    if(good_matches.size() < 4) {
+        ss << "\tNeeded 4 points to calculate homography. Have " << good_matches.size() << "\n______________________________________\n";
+        Log::instance().debug(ss.str());
+        ss.str("");
         cv::Mat img_matches;
         drawMatches( object_->getImg(), object_->getKeypoints(), scene_.getImg(), scene_.getKeypoints(),
             good_matches, img_matches,cv::Scalar::all(-1), cv::Scalar(0,0,255));
@@ -95,6 +111,10 @@ bool ObjectDetector::iterate(bool wait) {
         }
     }
 
+    ss << "\tInlier points: " << inlier_points.size() << "\n";
+    Log::instance().debug(ss.str());
+    ss.str("");
+
     cv::Mat img_matches;
     drawMatches(object_->getImg(), object_->getKeypoints(), scene_.getImg(), scene_.getKeypoints(),
         inlier_matches, img_matches,cv::Scalar::all(-1), cv::Scalar(0,0,255));
@@ -114,12 +134,15 @@ bool ObjectDetector::iterate(bool wait) {
     }
 
     if(!allPointsInsideCountour(scene_corners, inlier_points)) {
+        Log::instance().debug("\tInlier outside contour\n__________________________________________________\n");
         return false;
     }
 
     scene_.removeKeypointsInsideCountour(scene_corners);
 
-    objects_found_.push_back(FoundObject(scene_corners, object_->getValue()));
+    objects_found_.push_back(FoundObject(scene_corners, object_->getValue(), object_->getTag()));
+
+    Log::instance().debug("\tFound: " + object_->getTag() + "\n_____________________________________\n");
 
     return true;
 }
@@ -127,7 +150,7 @@ bool ObjectDetector::iterate(bool wait) {
 void ObjectDetector::findAllObjects(bool wait) {
     for(unsigned int i = 0; i < object_library_.size(); ++i) {
         object_ = &object_library_[i];
-
+        Log::instance().debug(object_->getTag() + "\n");
         while(iterate(wait));
         scene_.resetKeypoints();
     }

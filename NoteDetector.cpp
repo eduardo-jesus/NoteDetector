@@ -22,6 +22,10 @@ void getCombination(std::string feature_name, std::string descriptor_name, std::
 
     if (descriptor_name == "SURF") {
         extractor = new cv::SurfDescriptorExtractor();
+        if (matcher_name == "Bruteforce") {
+            matcher = new cv::BFMatcher(cv::NORM_L2, false);
+            return;
+        }
     } else if (descriptor_name == "SIFT") {
         extractor = new cv::SiftDescriptorExtractor();
     } else if (descriptor_name == "ORB") {
@@ -35,7 +39,7 @@ void getCombination(std::string feature_name, std::string descriptor_name, std::
     if (matcher_name == "FlannBased") {
         matcher = new cv::FlannBasedMatcher();
     } else if (matcher_name == "Bruteforce") {
-        matcher = new cv::BFMatcher();
+        matcher = new cv::BFMatcher(cv::NORM_HAMMING, true);
     }
 }
 
@@ -49,7 +53,8 @@ int main(int argc, char** argv) {
     cv::DescriptorExtractor* extractor =NULL; 
     cv::DescriptorMatcher* matcher = NULL;
 
-    std::string combinations[11][3] = { 
+    std::string combinations[11][3] = {
+        {"SURF", "SURF",  "Bruteforce"},
         {"FAST", "SURF",  "FlannBased"},
         {"SURF", "SURF",  "FlannBased"},
         {"FAST", "SIFT",  "FlannBased"},
@@ -59,14 +64,14 @@ int main(int argc, char** argv) {
         {"FAST", "BRIEF", "Bruteforce"},
         {"ORB",  "BRIEF", "Bruteforce"},
         {"FAST", "FREAK", "Bruteforce"},
-        {"SURF", "FREAK", "Bruteforce"},
-        {"SURF", "SURF",  "Bruteforce"}
+        {"SURF", "FREAK", "Bruteforce"}
+        
     };
 
-    std::string filename = (argc == 2) ? argv[1] : "notes/notes.png";
+    std::string filename = (argc == 2) ? argv[1] : "notes/IMG_2679.JPG";
 
     ObjectDetector object_detector = ObjectDetector(filename, detector, extractor, matcher);
-    object_detector.loadLibrary();
+    object_detector.loadLibrary(true);
 
     if (testing) {
         LARGE_INTEGER frequency; // ticks per second
@@ -89,7 +94,7 @@ int main(int argc, char** argv) {
             object_detector.computeAll(detector, extractor, matcher);
 
             QueryPerformanceCounter(&begin);
-            object_detector.findAllObjects(true);
+            object_detector.findAllObjects(false);
             QueryPerformanceCounter(&end);
 
             // elapsed time in milliseconds

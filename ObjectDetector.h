@@ -7,9 +7,10 @@
 #include "NoteImgObject.h"
 
 struct FoundObject {
-    FoundObject(std::vector<cv::Point2f> countour, int value) : countour_(countour), value_(value) {};
+    FoundObject(std::vector<cv::Point2f> countour, int value, std::string tag) : countour_(countour), value_(value), tag_(tag) {};
     std::vector<cv::Point2f> countour_;
-    int value_; 
+    int value_;
+    std::string tag_;
 };
 
 class ObjectDetector {
@@ -30,7 +31,7 @@ public:
         cv::DescriptorMatcher* descriptor_matcher);
     ~ObjectDetector(void);
 
-    void loadLibrary();
+    void loadLibrary(bool with_patches);
     void computeAll(cv::FeatureDetector* detector, cv::DescriptorExtractor* extractor, cv::DescriptorMatcher* matcher);
     bool iterate(bool wait);
     void findAllObjects(bool wait);

@@ -1,7 +1,570 @@
+Feature Detector: SURF Descriptor Extractor: SURF Matcher Type: Bruteforce
+5F
+	Matches: 100
+	Good matches: 100
+	Inlier points: 10
+	Inlier outside contour
+__________________________________________________
+5B
+	Matches: 56
+	Good matches: 56
+	Inlier points: 7
+	Inlier outside contour
+__________________________________________________
+10F
+	Matches: 125
+	Good matches: 30
+	Inlier points: 14
+	Found: 10F
+_____________________________________
+	No descriptors left.
+_________________________________________
+10B
+	Matches: 34
+	Good matches: 33
+	Inlier points: 6
+	Inlier outside contour
+__________________________________________________
+20F
+	Matches: 125
+	Good matches: 21
+	Inlier points: 6
+	Inlier outside contour
+__________________________________________________
+20B
+	Matches: 74
+	Good matches: 74
+	Inlier points: 7
+	Inlier outside contour
+__________________________________________________
+50F
+	Matches: 108
+	Good matches: 92
+	Inlier points: 9
+	Inlier outside contour
+__________________________________________________
+50B
+	Matches: 81
+	Good matches: 81
+	Inlier points: 7
+	Inlier outside contour
+__________________________________________________
+Total amount: 10
+Elapsed time: 1715.58 ms
 Feature Detector: FAST Descriptor Extractor: SURF Matcher Type: FlannBased
-Total amount: 45Elapsed time: 34478.8 ms
+5F
+	Matches: 907
+	Good matches: 671
+	Inlier points: 33
+	Inlier outside contour
+__________________________________________________
+5B
+	Matches: 667
+	Good matches: 654
+	Inlier points: 32
+	Inlier outside contour
+__________________________________________________
+10F
+	Matches: 796
+	Good matches: 261
+	Inlier points: 13
+	Inlier outside contour
+__________________________________________________
+10B
+	Matches: 547
+	Good matches: 542
+	Inlier points: 36
+	Inlier outside contour
+__________________________________________________
+20F
+	Matches: 905
+	Good matches: 234
+	Inlier points: 18
+	Inlier outside contour
+__________________________________________________
+20B
+	Matches: 661
+	Good matches: 502
+	Inlier points: 42
+	Inlier outside contour
+__________________________________________________
+50F
+	Matches: 628
+	Good matches: 444
+	Inlier points: 27
+	Inlier outside contour
+__________________________________________________
+50B
+	Matches: 776
+	Good matches: 733
+	Inlier points: 40
+	Inlier outside contour
+__________________________________________________
+Total amount: 0
+Elapsed time: 6143.03 ms
 Feature Detector: SURF Descriptor Extractor: SURF Matcher Type: FlannBased
-Total amount: 45Elapsed time: 16303 ms
+5F
+	Matches: 100
+	Good matches: 100
+	Inlier points: 10
+	Inlier outside contour
+__________________________________________________
+5B
+	Matches: 56
+	Good matches: 56
+	Inlier points: 7
+	Inlier outside contour
+__________________________________________________
+10F
+	Matches: 125
+	Good matches: 29
+	Inlier points: 14
+	Found: 10F
+_____________________________________
+	Matches: 125
+	Good matches: 125
+	Inlier points: 125
+	Inlier outside contour
+__________________________________________________
+10B
+	Matches: 34
+	Good matches: 32
+	Inlier points: 5
+	Inlier outside contour
+__________________________________________________
+20F
+	Matches: 125
+	Good matches: 21
+	Inlier points: 6
+	Inlier outside contour
+__________________________________________________
+20B
+	Matches: 74
+	Good matches: 74
+	Inlier points: 7
+	Inlier outside contour
+__________________________________________________
+50F
+	Matches: 108
+	Good matches: 92
+	Inlier points: 8
+	Inlier outside contour
+__________________________________________________
+50B
+	Matches: 81
+	Good matches: 81
+	Inlier points: 7
+	Inlier outside contour
+__________________________________________________
+Total amount: 10
+Elapsed time: 2144.26 ms
 Feature Detector: FAST Descriptor Extractor: SIFT Matcher Type: FlannBased
-Total amount: 120Elapsed time: 70415.7 ms
+5F
+	Matches: 907
+	Good matches: 132
+	Inlier points: 25
+	Inlier outside contour
+__________________________________________________
+5B
+	Matches: 667
+	Good matches: 30
+	Inlier points: 14
+	Inlier outside contour
+__________________________________________________
+10F
+	Matches: 796
+	Good matches: 173
+	Inlier points: 18
+	Inlier outside contour
+__________________________________________________
+10B
+	Matches: 547
+	Good matches: 31
+	Inlier points: 11
+	Inlier outside contour
+__________________________________________________
+20F
+	Matches: 905
+	Good matches: 292
+	Inlier points: 38
+	Inlier outside contour
+__________________________________________________
+20B
+	Matches: 661
+	Good matches: 15
+	Inlier points: 8
+	Inlier outside contour
+__________________________________________________
+50F
+	Matches: 628
+	Good matches: 48
+	Inlier points: 11
+	Inlier outside contour
+__________________________________________________
+50B
+	Matches: 776
+	Good matches: 62
+	Inlier points: 16
+	Inlier outside contour
+__________________________________________________
+Total amount: 0
+Elapsed time: 5758.59 ms
 Feature Detector: SIFT Descriptor Extractor: SIFT Matcher Type: FlannBased
+5F
+	Matches: 115
+	Good matches: 45
+	Inlier points: 9
+	Inlier outside contour
+__________________________________________________
+5B
+	Matches: 124
+	Good matches: 18
+	Inlier points: 5
+	Inlier outside contour
+__________________________________________________
+10F
+	Matches: 100
+	Good matches: 34
+	Inlier points: 17
+	Found: 10F
+_____________________________________
+	Matches: 100
+	Good matches: 0
+	Needed 4 points to calculate homography. Have 0
+______________________________________
+10B
+	Matches: 94
+	Good matches: 38
+	Inlier points: 12
+	Inlier outside contour
+__________________________________________________
+20F
+	Matches: 202
+	Good matches: 66
+	Inlier points: 14
+	Inlier outside contour
+__________________________________________________
+20B
+	Matches: 116
+	Good matches: 23
+	Inlier points: 9
+	Inlier outside contour
+__________________________________________________
+50F
+	Matches: 141
+	Good matches: 46
+	Inlier points: 8
+	Inlier outside contour
+__________________________________________________
+50B
+	Matches: 110
+	Good matches: 30
+	Inlier points: 9
+	Inlier outside contour
+__________________________________________________
+Total amount: 10
+Elapsed time: 1946.79 ms
+Feature Detector: FAST Descriptor Extractor: ORB Matcher Type: Bruteforce
+5F
+	Matches: 282
+	Good matches: 282
+	Inlier points: 9
+	Inlier outside contour
+__________________________________________________
+5B
+	Matches: 189
+	Good matches: 65
+	Inlier points: 6
+	Inlier outside contour
+__________________________________________________
+10F
+	Matches: 304
+	Good matches: 180
+	Inlier points: 6
+	Inlier outside contour
+__________________________________________________
+10B
+	Matches: 140
+	Good matches: 126
+	Inlier points: 7
+	Inlier outside contour
+__________________________________________________
+20F
+	Matches: 305
+	Good matches: 140
+	Inlier points: 7
+	Inlier outside contour
+__________________________________________________
+20B
+	Matches: 215
+	Good matches: 215
+	Inlier points: 6
+	Inlier outside contour
+__________________________________________________
+50F
+	Matches: 262
+	Good matches: 260
+	Inlier points: 7
+	Inlier outside contour
+__________________________________________________
+50B
+	Matches: 215
+	Good matches: 126
+	Inlier points: 7
+	Inlier outside contour
+__________________________________________________
+Total amount: 0
+Elapsed time: 2234.28 ms
+Feature Detector: ORB Descriptor Extractor: ORB Matcher Type: Bruteforce
+5F
+	Matches: 165
+	Good matches: 165
+	Inlier points: 8
+	Inlier outside contour
+__________________________________________________
+5B
+	Matches: 64
+	Good matches: 64
+	Inlier points: 7
+	Inlier outside contour
+__________________________________________________
+10F
+	Matches: 179
+	Good matches: 179
+	Inlier points: 8
+	Inlier outside contour
+__________________________________________________
+10B
+	Matches: 31
+	Good matches: 31
+	Inlier points: 7
+	Inlier outside contour
+__________________________________________________
+20F
+	Matches: 169
+	Good matches: 159
+	Inlier points: 9
+	Inlier outside contour
+__________________________________________________
+20B
+	Matches: 42
+	Good matches: 42
+	Inlier points: 7
+	Inlier outside contour
+__________________________________________________
+50F
+	Matches: 153
+	Good matches: 153
+	Inlier points: 8
+	Inlier outside contour
+__________________________________________________
+50B
+	Matches: 43
+	Good matches: 43
+	Inlier points: 7
+	Inlier outside contour
+__________________________________________________
+Total amount: 0
+Elapsed time: 2078.7 ms
+Feature Detector: FAST Descriptor Extractor: BRIEF Matcher Type: Bruteforce
+5F
+	Matches: 317
+	Good matches: 208
+	Inlier points: 7
+	Inlier outside contour
+__________________________________________________
+5B
+	Matches: 187
+	Good matches: 160
+	Inlier points: 6
+	Inlier outside contour
+__________________________________________________
+10F
+	Matches: 316
+	Good matches: 130
+	Inlier points: 8
+	Inlier outside contour
+__________________________________________________
+10B
+	Matches: 142
+	Good matches: 54
+	Inlier points: 7
+	Inlier outside contour
+__________________________________________________
+20F
+	Matches: 307
+	Good matches: 221
+	Inlier points: 8
+	Inlier outside contour
+__________________________________________________
+20B
+	Matches: 213
+	Good matches: 203
+	Inlier points: 7
+	Inlier outside contour
+__________________________________________________
+50F
+	Matches: 255
+	Good matches: 254
+	Inlier points: 8
+	Inlier outside contour
+__________________________________________________
+50B
+	Matches: 227
+	Good matches: 172
+	Inlier points: 8
+	Inlier outside contour
+__________________________________________________
+Total amount: 0
+Elapsed time: 2211.56 ms
+Feature Detector: ORB Descriptor Extractor: BRIEF Matcher Type: Bruteforce
+5F
+	Matches: 110
+	Good matches: 71
+	Inlier points: 7
+	Inlier outside contour
+__________________________________________________
+5B
+	Matches: 54
+	Good matches: 54
+	Inlier points: 6
+	Inlier outside contour
+__________________________________________________
+10F
+	Matches: 114
+	Good matches: 110
+	Inlier points: 8
+	Inlier outside contour
+__________________________________________________
+10B
+	Matches: 26
+	Good matches: 26
+	Inlier points: 6
+	Inlier outside contour
+__________________________________________________
+20F
+	Matches: 98
+	Good matches: 98
+	Inlier points: 9
+	Inlier outside contour
+__________________________________________________
+20B
+	Matches: 34
+	Good matches: 34
+	Inlier points: 6
+	Inlier outside contour
+__________________________________________________
+50F
+	Matches: 114
+	Good matches: 114
+	Inlier points: 8
+	Inlier outside contour
+__________________________________________________
+50B
+	Matches: 30
+	Good matches: 29
+	Inlier points: 5
+	Inlier outside contour
+__________________________________________________
+Total amount: 0
+Elapsed time: 1951.62 ms
+Feature Detector: FAST Descriptor Extractor: FREAK Matcher Type: Bruteforce
+5F
+	Matches: 303
+	Good matches: 264
+	Inlier points: 7
+	Inlier outside contour
+__________________________________________________
+5B
+	Matches: 234
+	Good matches: 198
+	Inlier points: 6
+	Inlier outside contour
+__________________________________________________
+10F
+	Matches: 284
+	Good matches: 248
+	Inlier points: 7
+	Inlier outside contour
+__________________________________________________
+10B
+	Matches: 156
+	Good matches: 155
+	Inlier points: 6
+	Inlier outside contour
+__________________________________________________
+20F
+	Matches: 277
+	Good matches: 273
+	Inlier points: 6
+	Inlier outside contour
+__________________________________________________
+20B
+	Matches: 212
+	Good matches: 212
+	Inlier points: 6
+	Inlier outside contour
+__________________________________________________
+50F
+	Matches: 261
+	Good matches: 258
+	Inlier points: 7
+	Inlier outside contour
+__________________________________________________
+50B
+	Matches: 230
+	Good matches: 229
+	Inlier points: 6
+	Inlier outside contour
+__________________________________________________
+Total amount: 0
+Elapsed time: 2422.94 ms
+Feature Detector: SURF Descriptor Extractor: FREAK Matcher Type: Bruteforce
+5F
+	Matches: 5
+	Good matches: 5
+	Inlier points: 4
+	Inlier outside contour
+__________________________________________________
+5B
+	Matches: 2
+	Good matches: 2
+	Needed 4 points to calculate homography. Have 2
+______________________________________
+10F
+	Matches: 13
+	Good matches: 13
+	Inlier points: 5
+	Inlier outside contour
+__________________________________________________
+10B
+	Matches: 0
+	Good matches: 0
+	Needed 4 points to calculate homography. Have 0
+______________________________________
+20F
+	Matches: 16
+	Good matches: 16
+	Inlier points: 5
+	Inlier outside contour
+__________________________________________________
+20B
+	Matches: 4
+	Good matches: 4
+	Inlier points: 4
+	Inlier outside contour
+__________________________________________________
+50F
+	Matches: 17
+	Good matches: 17
+	Inlier points: 5
+	Inlier outside contour
+__________________________________________________
+50B
+	Matches: 4
+	Good matches: 4
+	Inlier points: 4
+	Inlier outside contour
+__________________________________________________
+Total amount: 0
+Elapsed time: 403.528 ms
