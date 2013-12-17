@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 
 #include "windows.h"
 
@@ -43,11 +44,26 @@ void getCombination(std::string feature_name, std::string descriptor_name, std::
     }
 }
 
+int getInput(std::string prompt, int min, int max) {
+    std::string input;
+    int option;
+    while (true) {
+        std::cin.clear();
+        std::cout << prompt;
+        std::getline(std::cin, input);
+        std::stringstream sstream(input);
+
+        if (sstream >> option && option >= min && option <= max) {
+            return option;
+        }
+    }
+}
+
 int main(int argc, char** argv) {
     Log& log = Log::instance();
     log.open("log.txt");
 
-    bool testing = true;
+    bool testing = false;
 
     cv::FeatureDetector* detector = NULL; 
     cv::DescriptorExtractor* extractor =NULL; 
@@ -112,9 +128,40 @@ int main(int argc, char** argv) {
             matcher = NULL;
         }
     } else {
-        detector = new cv::SurfFeatureDetector(400);
-        extractor = new cv::SurfDescriptorExtractor();
-        matcher = new cv::BFMatcher();
+        int choice;
+        while (true) {
+            std::cout << "     Feature Detector | Descriptor Extractor | Matcher Type" << "\n"
+                      << "-----------------------------------------------------------" << "\n";
+            for (int i = 0; i < 11; ++i) {
+                std::cout << std::setw(2) << i << " | " << std::setw(16) << combinations[i][0]
+                                               << " | " << std::setw(20) << combinations[i][1]
+                                               << " | " << std::setw(12) << combinations[i][2] << "\n";
+            }
+            std::cout << "-----------------------------------------------------------" << "\n";
+
+            choice = getInput("Option (-1 to exit): ", -1, 11);
+
+            if (choice == -1) {
+                break;
+            }
+
+            getCombination(combinations[choice][0], combinations[choice][1], combinations[choice][2],
+                           detector, extractor, matcher);
+
+            std::string title = "Feature Detector: " + combinations[choice][0] + " " +
+                "Descriptor Extractor: " + combinations[choice][1] + " " +
+                "Matcher Type: " + combinations[choice][2] + "\n";
+            object_detector.computeAll(title, detector, extractor, matcher);
+
+            object_detector.findAllObjects(true);
+
+            delete detector;
+            delete extractor;
+            delete matcher;
+            extractor = NULL;
+            detector = NULL;
+            matcher = NULL;
+        }
     }
 
     log.close();
