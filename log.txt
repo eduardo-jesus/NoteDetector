@@ -1,0 +1,60 @@
+NUMBER OF KEYPOINTS
+5F: 907
+5B: 667
+10F: 796
+10B: 547
+20F: 905
+20B: 661
+50F: 628
+50B: 776
+scene: 481
+
+5F
+	Matches: 907
+	Good matches: 745
+	Inlier points: 30
+	Inlier outside contour
+__________________________________________________
+5B
+	Matches: 667
+	Good matches: 578
+	Inlier points: 19
+	Inlier outside contour
+__________________________________________________
+10F
+	Matches: 796
+	Good matches: 528
+	Inlier points: 26
+	Inlier outside contour
+__________________________________________________
+10B
+	Matches: 547
+	Good matches: 525
+	Inlier points: 52
+	Inlier outside contour
+__________________________________________________
+20F
+	Matches: 905
+	Good matches: 815
+	Inlier points: 38
+	Inlier outside contour
+__________________________________________________
+20B
+	Matches: 661
+	Good matches: 585
+	Inlier points: 41
+	Inlier outside contour
+__________________________________________________
+50F
+	Matches: 628
+	Good matches: 498
+	Inlier points: 24
+	Inlier outside contour
+__________________________________________________
+50B
+	Matches: 776
+	Good matches: 753
+	Inlier points: 36
+	Inlier outside contour
+__________________________________________________
+Total amount: 0

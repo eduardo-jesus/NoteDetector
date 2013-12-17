@@ -66,18 +66,38 @@ std::string getInput(std::string prompt) {
     return input;
 }
 
+void printUsage() {
+
+}
+
 int main(int argc, char** argv) {
+    bool testing = false;
+    bool with_wait = true;
+
+
+    if (argc > 3) {
+        printUsage();
+        return 1;
+    }
+
+    std::string filename = "";
+
+    for (int i = 1; i < argc; ++i) {
+        if (argv[i] == "-test" || argv[i] == "-t") {
+            testing = true;
+        } else {
+            filename = argv[i];
+        }
+    }
+
     Log& log = Log::instance();
     log.open("log.txt");
-
-    bool testing = false;
 
     cv::FeatureDetector* detector = NULL; 
     cv::DescriptorExtractor* extractor =NULL; 
     cv::DescriptorMatcher* matcher = NULL;
 
     std::string combinations[11][3] = {
-        {"SURF", "SURF",  "Bruteforce"},
         {"FAST", "SURF",  "FlannBased"},
         {"SURF", "SURF",  "FlannBased"},
         {"FAST", "SIFT",  "FlannBased"},
@@ -87,16 +107,31 @@ int main(int argc, char** argv) {
         {"FAST", "BRIEF", "Bruteforce"},
         {"ORB",  "BRIEF", "Bruteforce"},
         {"FAST", "FREAK", "Bruteforce"},
-        {"SURF", "FREAK", "Bruteforce"}
-        
+        {"SURF", "FREAK", "Bruteforce"},
+        {"SURF", "SURF",  "Bruteforce"}   
     };
 
-    std::string filename = (argc == 2) ? argv[1] : "notes/IMG_2679.JPG";
+    if (filename == "") {
+        filename = getInput("Filename: ");
+    }
+
+    if (!testing) {
+        std::string answer = "";
+        while (answer != "y" && answer != "Y" && answer != "n" && answer != "N") {
+            std::cout << "Hide windows with results (y/n)? ";
+            std::getline(std::cin, answer);
+        }
+        if (answer == "y") {
+            with_wait = false; // User don't want to see results of image analysis
+        }
+    } else {
+        with_wait = false; // Don't show windows with results of image analysis
+    }
+
+    ObjectDetector object_detector = ObjectDetector(filename, detector, extractor, matcher);
+    object_detector.loadLibrary(true);
 
     if (testing) {
-        ObjectDetector object_detector = ObjectDetector(filename, detector, extractor, matcher);
-        object_detector.loadLibrary(true);
-
         LARGE_INTEGER frequency; // ticks per second
         LARGE_INTEGER begin, end;
         double elapsed_time;
@@ -135,11 +170,6 @@ int main(int argc, char** argv) {
             matcher = NULL;
         }
     } else {
-        filename = getInput("Filename: ");
-
-        ObjectDetector object_detector = ObjectDetector(filename, detector, extractor, matcher);
-        object_detector.loadLibrary(true);
-
         int choice;
         while (true) {
             std::cout << "     Feature Detector | Descriptor Extractor | Matcher Type" << "\n"
