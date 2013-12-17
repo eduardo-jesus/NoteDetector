@@ -59,6 +59,13 @@ int getInput(std::string prompt, int min, int max) {
     }
 }
 
+std::string getInput(std::string prompt) {
+    std::string input;
+    std::cout << prompt;
+    std::getline(std::cin, input);
+    return input;
+}
+
 int main(int argc, char** argv) {
     Log& log = Log::instance();
     log.open("log.txt");
@@ -86,10 +93,10 @@ int main(int argc, char** argv) {
 
     std::string filename = (argc == 2) ? argv[1] : "notes/IMG_2679.JPG";
 
-    ObjectDetector object_detector = ObjectDetector(filename, detector, extractor, matcher);
-    object_detector.loadLibrary(true);
-
     if (testing) {
+        ObjectDetector object_detector = ObjectDetector(filename, detector, extractor, matcher);
+        object_detector.loadLibrary(true);
+
         LARGE_INTEGER frequency; // ticks per second
         LARGE_INTEGER begin, end;
         double elapsed_time;
@@ -128,6 +135,11 @@ int main(int argc, char** argv) {
             matcher = NULL;
         }
     } else {
+        filename = getInput("Filename: ");
+
+        ObjectDetector object_detector = ObjectDetector(filename, detector, extractor, matcher);
+        object_detector.loadLibrary(true);
+
         int choice;
         while (true) {
             std::cout << "     Feature Detector | Descriptor Extractor | Matcher Type" << "\n"
