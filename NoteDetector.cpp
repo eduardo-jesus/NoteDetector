@@ -66,24 +66,19 @@ std::string getInput(std::string prompt) {
     return input;
 }
 
-void printUsage() {
-
-}
-
 int main(int argc, char** argv) {
     bool testing = false;
     bool with_wait = true;
 
-
     if (argc > 3) {
-        printUsage();
+        std::cout << "Usage: " << argv[0] << " [<filename>] [-test]" << "\n";
         return 1;
     }
 
     std::string filename = "";
 
     for (int i = 1; i < argc; ++i) {
-        if (argv[i] == "-test" || argv[i] == "-t") {
+        if (std::string(argv[i]) == "-test" || std::string(argv[i]) == "-t") {
             testing = true;
         } else {
             filename = argv[i];
@@ -152,7 +147,7 @@ int main(int argc, char** argv) {
             object_detector.computeAll(used_algorithms, detector, extractor, matcher);
 
             QueryPerformanceCounter(&begin);
-            object_detector.findAllObjects(true);
+            object_detector.findAllObjects(with_wait);
             QueryPerformanceCounter(&end);
 
             // elapsed time in milliseconds
