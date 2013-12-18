@@ -9,6 +9,8 @@
 #include "Log.h"
 #include "ObjectDetector.h"
 
+// For a given combination <detector, extractor, matcher>,
+// allocates the respective algorithms
 void getCombination(std::string feature_name, std::string descriptor_name, std::string matcher_name,
                     cv::FeatureDetector* &detector, cv::DescriptorExtractor* &extractor, cv::DescriptorMatcher* &matcher) {
     if (feature_name == "FAST") {
@@ -44,6 +46,7 @@ void getCombination(std::string feature_name, std::string descriptor_name, std::
     }
 }
 
+// Scan integer input from user betwwen a given min and max values
 int getInput(std::string prompt, int min, int max) {
     std::string input;
     int option;
@@ -59,6 +62,7 @@ int getInput(std::string prompt, int min, int max) {
     }
 }
 
+// Scan a string input from user
 std::string getInput(std::string prompt) {
     std::string input;
     std::cout << prompt;
@@ -199,6 +203,7 @@ int main(int argc, char** argv) {
             }
 
             if (choice == 11) {
+                // User wants to use all the available combinations.
                 for (int i = 0; i < 11; ++i) {
                     std::string title = "Feature Detector: " + combinations[i][0] + " " +
                         "Descriptor Extractor: " + combinations[i][1] + " " +

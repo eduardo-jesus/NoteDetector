@@ -28,6 +28,8 @@ ObjectDetector::ObjectDetector(std::string scene_filename, cv::FeatureDetector* 
 
 ObjectDetector::~ObjectDetector(void) {}
 
+
+// Load all notes
 void ObjectDetector::loadLibrary(bool with_patches) {
     object_library_.push_back(NoteImgObject::create5Front(with_patches, feature_detector_, descriptor_extractor_));
     object_library_.push_back(NoteImgObject::create5Back(with_patches, feature_detector_, descriptor_extractor_));
@@ -48,8 +50,6 @@ bool ObjectDetector::iterate(bool wait) {
     }
 
     std::vector<cv::DMatch> matches, good_matches;
-
-    //std::cout << scene_.getDescriptors().rows << "\n";
     
     descriptor_matcher_->match(object_->getDescriptors(), scene_.getDescriptors(), matches);
     std::stringstream ss;
@@ -58,7 +58,7 @@ bool ObjectDetector::iterate(bool wait) {
     ss.str("");
     double max_dist = 0;
     double min_dist = 100;
-    for(unsigned int i = 0; i < /*object_->getKeypoints().size()*/matches.size(); ++i) {
+    for(unsigned int i = 0; i < matches.size(); ++i) {
         double dist = matches[i].distance;
         if(dist < min_dist) {
             min_dist = dist;
@@ -68,7 +68,7 @@ bool ObjectDetector::iterate(bool wait) {
         }
     }
 
-    for(unsigned int i = 0; i < /*object_->getKeypoints().size()*/matches.size(); ++i) {
+    for(unsigned int i = 0; i < matches.size(); ++i) {
         if(matches[i].distance < 3 * min_dist) {
             good_matches.push_back(matches[i]);
         }
@@ -219,7 +219,8 @@ bool ObjectDetector::allPointsInsideCountour(std::vector<cv::Point2f> countour, 
     return true;
 }
 
-void ObjectDetector::computeAll(std::string used_algorithms, cv::FeatureDetector* detector, cv::DescriptorExtractor* extractor, cv::DescriptorMatcher* matcher) {
+void ObjectDetector::computeAll(std::string used_algorithms, cv::FeatureDetector* detector,
+                                cv::DescriptorExtractor* extractor, cv::DescriptorMatcher* matcher) {
     used_algorithms_ = used_algorithms;
     feature_detector_ = detector;
     descriptor_extractor_ = extractor;
