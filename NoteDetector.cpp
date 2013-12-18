@@ -99,7 +99,7 @@ int main(int argc, char** argv) {
     cv::DescriptorMatcher* matcher = NULL;
 
     // Combinations of feature detectors, descriptor extractor
-    // and matcher types
+    // and descriptor matcher
     std::string combinations[11][3] = {
         {"FAST", "SURF",  "FlannBased"},
         {"SURF", "SURF",  "FlannBased"},
@@ -154,7 +154,7 @@ int main(int argc, char** argv) {
         for (int i = 0; i < 11; ++i) {
             used_algorithms = "Feature Detector: " + combinations[i][0] + " " +
                 "Descriptor Extractor: " + combinations[i][1] + " " +
-                "Matcher Type: " + combinations[i][2] + "\n";
+                "Descriptor Matcher: " + combinations[i][2] + "\n";
             log.debug(used_algorithms);
             getCombination(combinations[i][0], combinations[i][1], combinations[i][2],
                            detector, extractor, matcher);
@@ -185,7 +185,7 @@ int main(int argc, char** argv) {
         // -------------------------------------------------------------
         int choice;
         while (true) {
-            std::cout << "     Feature Detector | Descriptor Extractor | Matcher Type" << "\n"
+            std::cout << "     Feature Detector | Descriptor Extractor | Descriptor Matcher" << "\n"
                       << "-----------------------------------------------------------" << "\n";
             for (int i = 0; i < 11; ++i) {
                 std::cout << std::setw(2) << i << " | " << std::setw(16) << combinations[i][0]
@@ -207,7 +207,7 @@ int main(int argc, char** argv) {
                 for (int i = 0; i < 11; ++i) {
                     std::string title = "Feature Detector: " + combinations[i][0] + " " +
                         "Descriptor Extractor: " + combinations[i][1] + " " +
-                        "Matcher Type: " + combinations[i][2] + "\n";
+                        "Descriptor Matcher: " + combinations[i][2] + "\n";
                     getCombination(combinations[i][0], combinations[i][1], combinations[i][2],
                         detector, extractor, matcher);
 
@@ -228,7 +228,7 @@ int main(int argc, char** argv) {
 
                 std::string title = "Feature Detector: " + combinations[choice][0] + " " +
                     "Descriptor Extractor: " + combinations[choice][1] + " " +
-                    "Matcher Type: " + combinations[choice][2] + "\n";
+                    "Descriptor Matcher: " + combinations[choice][2] + "\n";
                 object_detector.computeAll(title, detector, extractor, matcher);
 
                 object_detector.findAllObjects(with_wait);
