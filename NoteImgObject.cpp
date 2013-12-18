@@ -45,7 +45,9 @@ std::vector<cv::Point2f>& NoteImgObject::getCorners() {
     return corners_;
 }
 
+// Keeps only the keypoints that are inside the NoteImgObject patches
 void NoteImgObject::selectKeyPoints(std::vector<cv::KeyPoint> keypoints) {
+    // if the instance does not have any patches, it will keep all the keypoints
     if(patches_.empty()) {
         original_keypoints_ = keypoints;
         return;
@@ -53,6 +55,7 @@ void NoteImgObject::selectKeyPoints(std::vector<cv::KeyPoint> keypoints) {
     original_keypoints_.clear();
     for(unsigned int i = 0; i < keypoints.size(); ++i) {
         for(unsigned int j = 0; j < patches_.size(); ++j) {
+            // if the keypoint is inside a patch, it is kept
             if(cv::pointPolygonTest(patches_[j], keypoints[i].pt, false) >= 0) {
                 original_keypoints_.push_back(keypoints[i]);
                 keypoints.erase(keypoints.begin() + i);
@@ -63,12 +66,14 @@ void NoteImgObject::selectKeyPoints(std::vector<cv::KeyPoint> keypoints) {
     }
 }
 
+// Override of ImgObject::detectKeypoints, where its is only kept the keypoints inside the image patches
 void NoteImgObject::detectKeypoints(cv::FeatureDetector* detector) {
     std::vector<cv::KeyPoint> keypoints;
     detector->detect(img_, keypoints);
     selectKeyPoints(keypoints);
 }
 
+// Creates a NoteImgObject for the 5 euro note (front), series 1
 NoteImgObject NoteImgObject::create5Front(bool with_patches, cv::FeatureDetector* detector, cv::DescriptorExtractor* extractor) {
     std::vector<std::vector<cv::Point2f>> patches;
     if (with_patches) {
@@ -80,6 +85,7 @@ NoteImgObject NoteImgObject::create5Front(bool with_patches, cv::FeatureDetector
     return NoteImgObject("5F", "notes/5eu_r.jpg", 5, detector, extractor, patches);
 }
 
+// Creates a NoteImgObject for the 5 euro note (front), series Europa
 NoteImgObject NoteImgObject::create5NFront(bool with_patches, cv::FeatureDetector* detector, cv::DescriptorExtractor* extractor) {
     std::vector<std::vector<cv::Point2f>> patches;
     if (with_patches) {
@@ -90,6 +96,7 @@ NoteImgObject NoteImgObject::create5NFront(bool with_patches, cv::FeatureDetecto
     return NoteImgObject("5NF", "notes/5_new_front.png", 5, detector, extractor, patches);
 }
 
+// Creates a NoteImgObject for the 5 euro note (back), series 1
 NoteImgObject NoteImgObject::create5Back(bool with_patches, cv::FeatureDetector* detector, cv::DescriptorExtractor* extractor) {
     std::vector<std::vector<cv::Point2f>> patches;
     if (with_patches) {
@@ -101,6 +108,7 @@ NoteImgObject NoteImgObject::create5Back(bool with_patches, cv::FeatureDetector*
     return NoteImgObject("5B", "notes/5eu_v.jpg", 5, detector, extractor, patches);
 }
 
+// Creates a NoteImgObject for the 5 euro note (back), series Europa
 NoteImgObject NoteImgObject::create5NBack(bool with_patches, cv::FeatureDetector* detector, cv::DescriptorExtractor* extractor) {
     std::vector<std::vector<cv::Point2f>> patches;
     if (with_patches) {
@@ -110,6 +118,7 @@ NoteImgObject NoteImgObject::create5NBack(bool with_patches, cv::FeatureDetector
     return NoteImgObject("5NB", "notes/5_new_back.png", 5, detector, extractor, patches);
 }
 
+// Creates a NoteImgObject for the 10 euro note (front)
 NoteImgObject NoteImgObject::create10Front(bool with_patches, cv::FeatureDetector* detector, cv::DescriptorExtractor* extractor) {
     std::vector<std::vector<cv::Point2f>> patches;
     if (with_patches) {
@@ -121,6 +130,7 @@ NoteImgObject NoteImgObject::create10Front(bool with_patches, cv::FeatureDetecto
     return NoteImgObject("10F", "notes/10eu_r.jpg", 10, detector, extractor, patches);
 }
 
+// Creates a NoteImgObject for the 10 euro note (back)
 NoteImgObject NoteImgObject::create10Back(bool with_patches, cv::FeatureDetector* detector, cv::DescriptorExtractor* extractor) {
     std::vector<std::vector<cv::Point2f>> patches;
     if (with_patches) {
@@ -132,6 +142,7 @@ NoteImgObject NoteImgObject::create10Back(bool with_patches, cv::FeatureDetector
     return NoteImgObject("10B", "notes/10eu_v.jpg", 10, detector, extractor, patches);
 }
 
+// Creates a NoteImgObject for the 20 euro note (front)
 NoteImgObject NoteImgObject::create20Front(bool with_patches, cv::FeatureDetector* detector, cv::DescriptorExtractor* extractor) {
     std::vector<std::vector<cv::Point2f>> patches;
     if (with_patches) {
@@ -143,6 +154,7 @@ NoteImgObject NoteImgObject::create20Front(bool with_patches, cv::FeatureDetecto
     return NoteImgObject("20F", "notes/20eu_r.jpg", 20, detector, extractor, patches);
 }
 
+// Creates a NoteImgObject for the 20 euro note (back)
 NoteImgObject NoteImgObject::create20Back(bool with_patches, cv::FeatureDetector* detector, cv::DescriptorExtractor* extractor) {
     std::vector<std::vector<cv::Point2f>> patches;
     if (with_patches) {
@@ -154,6 +166,7 @@ NoteImgObject NoteImgObject::create20Back(bool with_patches, cv::FeatureDetector
     return NoteImgObject("20B", "notes/20eu_v.jpg", 20, detector, extractor, patches);
 }
 
+// Creates a NoteImgObject for the 50 euro note (front)
 NoteImgObject NoteImgObject::create50Front(bool with_patches, cv::FeatureDetector* detector, cv::DescriptorExtractor* extractor) {
     std::vector<std::vector<cv::Point2f>> patches;
     if (with_patches) {
@@ -165,6 +178,7 @@ NoteImgObject NoteImgObject::create50Front(bool with_patches, cv::FeatureDetecto
     return NoteImgObject("50F", "notes/50eu_r.jpg", 50, detector, extractor, patches);
 }
 
+// Creates a NoteImgObject for the 50 euro note (back)
 NoteImgObject NoteImgObject::create50Back(bool with_patches, cv::FeatureDetector* detector, cv::DescriptorExtractor* extractor) {
     std::vector<std::vector<cv::Point2f>> patches;
     if (with_patches) {

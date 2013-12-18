@@ -6,6 +6,7 @@
 
 #include "NoteImgObject.h"
 
+// Keeps the information about the founded note, such as the contours and value.
 struct FoundObject {
     FoundObject(std::vector<cv::Point2f> countour, int value, std::string tag) : countour_(countour), value_(value), tag_(tag) {};
     std::vector<cv::Point2f> countour_;
@@ -13,6 +14,7 @@ struct FoundObject {
     std::string tag_;
 };
 
+// Applies various algorithms to find notes in a given image
 class ObjectDetector {
 private:
     std::vector<NoteImgObject> object_library_;

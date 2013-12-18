@@ -3,6 +3,7 @@
 
 #include "ImgObject.h"
 
+// Class to represent the note images. Subclass of ImgObject.
 class NoteImgObject : public ImgObject {
 private:
     std::string tag_;

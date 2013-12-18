@@ -43,6 +43,8 @@ void ObjectDetector::loadLibrary(bool with_patches) {
     object_library_.push_back(NoteImgObject::create50Back(with_patches, feature_detector_, descriptor_extractor_));
 }
 
+// An iteration to detect a certain note. Returns true if the note is found.
+// If wait is true, the iteration results will be shown in a window
 bool ObjectDetector::iterate(bool wait) {
     if (scene_.getDescriptors().rows == 0) {
         Log::instance().debug("\tNo descriptors left.\n__________________________________________________________________________\n");
@@ -51,6 +53,7 @@ bool ObjectDetector::iterate(bool wait) {
 
     std::vector<cv::DMatch> matches, good_matches;
     
+    // compute the matches
     descriptor_matcher_->match(object_->getDescriptors(), scene_.getDescriptors(), matches);
     std::stringstream ss;
     ss << "\tMatches: " << matches.size() << "\n";
@@ -68,6 +71,7 @@ bool ObjectDetector::iterate(bool wait) {
         }
     }
 
+    // only uses matches whose distance is less than 3 times the mininum distance in the matches found
     for(unsigned int i = 0; i < matches.size(); ++i) {
         if(matches[i].distance < 3 * min_dist) {
             good_matches.push_back(matches[i]);
@@ -84,29 +88,31 @@ bool ObjectDetector::iterate(bool wait) {
         Log::instance().debug(ss.str());
         ss.str("");
         cv::Mat img_matches;
-        drawMatches( object_->getImg(), object_->getKeypoints(), scene_.getImg(), scene_.getKeypoints(),
-            good_matches, img_matches,cv::Scalar::all(-1), cv::Scalar(0,0,255));
         if (wait) {
+            drawMatches( object_->getImg(), object_->getKeypoints(), scene_.getImg(), scene_.getKeypoints(),
+                good_matches, img_matches,cv::Scalar::all(-1), cv::Scalar(0,0,255));
             cv::imshow(used_algorithms_ + " - Iteration", img_matches);
             cv::waitKey(0);
         }
         
-
         return false;
     }
 
+    // get the points in the scene image and note image from the matches to compute the homography
     std::vector<cv::Point2f> points_obj, points_scene;
     for(unsigned int i = 0; i < good_matches.size(); ++i) {
         points_obj.push_back(object_->getKeypoints()[good_matches[i].queryIdx].pt);
         points_scene.push_back(scene_.getKeypoints()[good_matches[i].trainIdx].pt);
     }
 
+    // computes the homography, and information about its inliers is kept in the inliers matrix
     cv::Mat inliers;
     cv::Mat homography = cv::findHomography(points_obj, points_scene, cv::RANSAC, 3, inliers);
 
     std::vector<cv::DMatch> inlier_matches;
     std::vector<cv::Point2f> inlier_points;
     for(int i = 0; i < inliers.rows; ++i) {
+        // if the first position in the ith row of the inliers matrix is different than zero, then the scene image point in good_matches[i] is an inlier
         if(inliers.at<uchar>(i, 0) != 0) {
             inlier_matches.push_back(good_matches[i]);
             cv::Point2f point = scene_.getKeypoints()[good_matches[i].trainIdx].pt; 
@@ -122,6 +128,7 @@ bool ObjectDetector::iterate(bool wait) {
     drawMatches(object_->getImg(), object_->getKeypoints(), scene_.getImg(), scene_.getKeypoints(),
         inlier_matches, img_matches,cv::Scalar::all(-1), cv::Scalar(0,0,255));
 
+    // the homography is applied to the corners of the note image
     std::vector<cv::Point2f> scene_corners(4);
     cv::perspectiveTransform(object_->getCorners(), scene_corners, homography);
 
@@ -136,13 +143,17 @@ bool ObjectDetector::iterate(bool wait) {
         cv::waitKey(0);
     }
 
+    // if at least one of the inliers is not in the area delimited by the note image contours when the homography is applied,
+    // then the scene image does not have images of the note
     if(!allPointsInsideCountour(scene_corners, inlier_points)) {
         Log::instance().debug("\tInlier outside contour\n__________________________________________________________________________\n");
         return false;
     }
 
+    // remove the keypoints inside the countours given by the note image in the scene object to find other notes of the same kind in the next iteration
     scene_.removeKeypointsInsideCountour(scene_corners);
 
+    // saves the information about the note found
     objects_found_.push_back(FoundObject(scene_corners, object_->getValue(), object_->getTag()));
 
     Log::instance().debug("\tFound: " + object_->getTag() + "\n__________________________________________________________________________\n");
@@ -150,17 +161,22 @@ bool ObjectDetector::iterate(bool wait) {
     return true;
 }
 
+// find all the notes in the library
 void ObjectDetector::findAllObjects(bool wait) {
+    // for each note in the library
     for(unsigned int i = 0; i < object_library_.size(); ++i) {
         object_ = &object_library_[i];
         Log::instance().debug(object_->getTag() + "\n");
+        // iterate while the note is found in the scene image 
         while(iterate(wait));
+        // when all notes of the same type are found, reset the keypoints
         scene_.resetKeypoints();
     }
 
     cv::Mat img_to_show;
     int total = 0;
     cv::cvtColor(scene_.getImg(), img_to_show, CV_GRAY2RGB);
+    // draw the found notes in the scene image
     for(unsigned int i = 0; i < objects_found_.size(); ++i) {
         drawFoundObject(img_to_show, objects_found_[i]);
         total += objects_found_[i].value_;
@@ -171,6 +187,7 @@ void ObjectDetector::findAllObjects(bool wait) {
 
     Log::instance().debug("Total amount: " + ss.str() + "\n");
 
+    // write the total value of the notes in the image
     int baseline = 0;
     cv::Size text_size = cv::getTextSize(ss.str(), FONT_FACE, 1, FONT_THICKNESS, &baseline);
     cv::putText(img_to_show, ss.str(), cv::Point(5, text_size.height + 5), FONT_FACE, 1, cv::Scalar(255,0,0), FONT_THICKNESS);
@@ -184,6 +201,7 @@ void ObjectDetector::findAllObjects(bool wait) {
     objects_found_.clear();
 }
 
+// draw the contours in an image with the given text in the middle
 void ObjectDetector::drawCountourWithText(cv::Mat& img, std::vector<cv::Point2f>& countour, std::string text) {
     line(img, countour[0], countour[1], cv::Scalar(0, 255, 0), 4);
     line(img, countour[1], countour[2], cv::Scalar(0, 255, 0), 4);
@@ -204,12 +222,14 @@ void ObjectDetector::drawCountourWithText(cv::Mat& img, std::vector<cv::Point2f>
     cv::putText(img, text, text_position, FONT_FACE, font_scale, cv::Scalar(255,0,0), FONT_THICKNESS);
 }
 
+// draw the countours of a found note with its value in the middle
 void ObjectDetector::drawFoundObject(cv::Mat& img, FoundObject found_object) {
     std::stringstream ss;
     ss << found_object.value_;
     drawCountourWithText(img, found_object.countour_, ss.str());
 }
 
+// verify if all points are inside a given countour
 bool ObjectDetector::allPointsInsideCountour(std::vector<cv::Point2f> countour, std::vector<cv::Point2f> inliers) {
     for (unsigned int i = 0; i < inliers.size(); ++i) {
         if(cv::pointPolygonTest(countour, inliers[i], false) < 0) {
@@ -219,6 +239,7 @@ bool ObjectDetector::allPointsInsideCountour(std::vector<cv::Point2f> countour, 
     return true;
 }
 
+// find all notes in the library with the given algorithms
 void ObjectDetector::computeAll(std::string used_algorithms, cv::FeatureDetector* detector,
                                 cv::DescriptorExtractor* extractor, cv::DescriptorMatcher* matcher) {
     used_algorithms_ = used_algorithms;

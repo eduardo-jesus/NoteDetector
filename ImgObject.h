@@ -6,6 +6,7 @@
 #include "opencv2/core/core.hpp"
 #include "opencv2/features2d/features2d.hpp"
 
+//Class to represent an image. It keeps its keypoints and descriptors.
 class ImgObject
 {
 protected:
